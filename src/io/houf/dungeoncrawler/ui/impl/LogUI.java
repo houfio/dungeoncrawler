@@ -76,6 +76,8 @@ public class LogUI extends UI {
         }
 
         this.lines.add(new LogLine(lines, color));
+
+        System.out.println(line);
     }
 
     public static class RawLogLine {

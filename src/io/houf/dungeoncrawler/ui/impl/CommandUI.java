@@ -1,8 +1,8 @@
 package io.houf.dungeoncrawler.ui.impl;
 
+import io.houf.dungeoncrawler.command.CommandHandler;
 import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.command.CommandHandler;
 import io.houf.dungeoncrawler.ui.UI;
 
 import java.awt.*;
@@ -68,11 +68,9 @@ public class CommandUI extends UI implements Selectable {
         }
 
         if (code == KeyEvent.VK_ENTER) {
-            var result = this.handler.handle(this.game, this.command.toString());
+            this.executeCommand(this.command.toString());
 
-            this.log.addLine(result.line, result.color);
             this.command.setLength(0);
-            this.suggested = "";
 
             return;
         } else if (code == KeyEvent.VK_BACK_SPACE) {
@@ -100,5 +98,12 @@ public class CommandUI extends UI implements Selectable {
     @Override
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public void executeCommand(String command) {
+        var result = this.handler.handle(this.game, command);
+
+        this.log.addLine(result.line, result.color);
+        this.suggested = "";
     }
 }

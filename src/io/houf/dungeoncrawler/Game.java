@@ -52,6 +52,8 @@ public class Game extends JPanel implements Loopable, KeyListener {
     }
 
     public void openUI(UI ui) {
+        this.interfaces.forEach(UI::cleanup);
+
         this.interfaces.clear();
         this.addUI(ui);
         this.interfaces.forEach(ui2 -> ui2.initialize(this));

@@ -9,6 +9,9 @@ import java.util.List;
 public abstract class UI {
     public abstract void initialize(Game game);
 
+    public void cleanup() {
+    }
+
     public List<UI> getChildren() {
         return new ArrayList<>();
     }

@@ -15,32 +15,34 @@ public class RoomUI extends UI {
 
     @Override
     public void render(Graphics2D g) {
-        g.setStroke(new BasicStroke(5));
+        g.setColor(new Color(57, 39, 29));
+        g.fillRect(100, 100, 250, 250);
+
+        g.setStroke(new BasicStroke(10));
         g.setColor(new Color(99, 55, 38));
         g.drawRect(100, 100, 250, 250);
-
-        g.setColor(new Color(57, 39, 29));
-        g.fillRect(102, 102, 246, 246);
+        g.setStroke(new BasicStroke(1));
 
         var room = this.game.ingame.currentRoom();
+
+        g.setColor(new Color(113, 30, 26));
+        g.fillRect(185, 185, 80, 80);
 
         for (var exit : room.exits.keySet()) {
             switch (exit) {
                 case NORTH:
-                    g.drawLine(200, 100, 250, 100);
+                    g.fillRect(185, 75, 80, 110);
                     break;
                 case EAST:
-                    g.drawLine(350, 200, 350, 250);
+                    g.fillRect(265, 185, 110, 80);
                     break;
                 case SOUTH:
-                    g.drawLine(200, 350, 250, 350);
+                    g.fillRect(185, 265, 80, 110);
                     break;
                 case WEST:
-                    g.drawLine(100, 200, 100, 250);
+                    g.fillRect(75, 185, 110, 80);
                     break;
             }
         }
-
-        g.setStroke(new BasicStroke(1));
     }
 }
