@@ -91,7 +91,7 @@ public class CommandHandler {
     }
 
     private ArgumentMap parseArguments(Command command, String[] array) {
-        var map = new HashMap<String, String>();
+        var map = new HashMap<String, Object>();
         var arguments = command.getArguments();
 
         for (var i = 0; i < arguments.length; i++) {
@@ -102,7 +102,13 @@ public class CommandHandler {
             }
 
             if (i <= array.length - 1) {
-                map.put(argument.name, array[i]);
+                var value = argument.validator.parse(array[i]);
+
+                if (value == null) {
+                    return null;
+                }
+
+                map.put(argument.name, value);
             }
         }
 
