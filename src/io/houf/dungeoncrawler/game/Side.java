@@ -15,4 +15,10 @@ public enum Side {
             .map(side -> side.name().toLowerCase())
             .collect(Collectors.toList());
     }
+
+    public Side opposite() {
+        var values = Arrays.asList(Side.values());
+
+        return values.get(values.indexOf(this) + 2 % values.size());
+    }
 }

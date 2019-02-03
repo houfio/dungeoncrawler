@@ -23,6 +23,8 @@ public class Game extends JPanel implements Loopable, KeyListener {
     private final List<Selectable> selectables;
     private final Pattern keyPattern;
 
+    public Ingame ingame;
+
     private int selected = 0;
     private int updates;
     private int frames;

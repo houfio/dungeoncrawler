@@ -27,6 +27,12 @@ public class GoCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        return new LogUI.RawLogLine("no u", Color.YELLOW);
+        var side = arguments.get(GoCommand.SIDE);
+
+        if (!game.ingame.move(Side.valueOf(side.toUpperCase()))) {
+            return new LogUI.RawLogLine("You could't walk to the " + side, Color.ORANGE);
+        }
+
+        return new LogUI.RawLogLine("You walked to the " + side, Color.YELLOW);
     }
 }
