@@ -6,7 +6,7 @@ import io.houf.dungeoncrawler.command.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.command.OptionValidator;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
-import io.houf.dungeoncrawler.game.Side;
+import io.houf.dungeoncrawler.room.Side;
 
 import java.awt.*;
 

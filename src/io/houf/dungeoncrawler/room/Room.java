@@ -1,29 +1,50 @@
 package io.houf.dungeoncrawler.room;
 
-import io.houf.dungeoncrawler.Ingame;
-import io.houf.dungeoncrawler.game.Side;
+import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.entity.Entity;
+import io.houf.dungeoncrawler.entity.PlayerEntity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Room {
-    public final Map<Side, Room> exits;
+    public final int x;
+    public final int y;
 
-    public Room(Ingame ingame) {
-        this.exits = new HashMap<>();
+    private final Game game;
+    private final List<Entity> entities;
 
-        ingame.rooms.add(this);
+    public Room(Game game, int x, int y) {
+        this.game = game;
+        this.x = x;
+        this.y = y;
+        this.entities = new ArrayList<>();
+
+        this.addEntity(new PlayerEntity());
     }
 
-    public void addExit(Side side, Room room) {
-        this.addExit(side, room, true);
+    public void addEntity(Entity entity) {
+        this.entities.add(entity);
+        entity.initialize(this.game);
     }
 
-    public void addExit(Side side, Room room, boolean add) {
-        this.exits.put(side, room);
+    public void update() {
+        var dead = new ArrayList<Entity>();
+        this.entities.forEach(entity -> {
+            if (entity.dead) {
+                dead.add(entity);
 
-        if (add) {
-            room.addExit(side.opposite(), this, false);
-        }
+                return;
+            }
+
+            entity.update();
+        });
+
+        this.entities.removeAll(dead);
+    }
+
+    public void render(Graphics2D g) {
+        this.entities.forEach(entity -> entity.render(g));
     }
 }

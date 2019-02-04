@@ -2,6 +2,7 @@ package io.houf.dungeoncrawler;
 
 import io.houf.dungeoncrawler.loop.Loop;
 import io.houf.dungeoncrawler.loop.Loopable;
+import io.houf.dungeoncrawler.ui.Animation;
 import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.ui.UI;
 import io.houf.dungeoncrawler.ui.impl.MainUI;
@@ -12,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class Game extends JPanel implements Loopable, KeyListener {
@@ -21,6 +24,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
     private final Loop loop;
     private final List<UI> interfaces;
     private final List<Selectable> selectables;
+    private final List<Animation> animations;
     private final Pattern keyPattern;
 
     public Ingame ingame;
@@ -40,6 +44,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
         this.loop = new Loop(this, 25.0d);
         this.interfaces = new ArrayList<>();
         this.selectables = new ArrayList<>();
+        this.animations = new ArrayList<>();
         this.keyPattern = Pattern.compile("[a-zA-Z0-9 ]");
     }
 
@@ -56,7 +61,6 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
         this.interfaces.clear();
         this.addUI(ui);
-        this.interfaces.forEach(ui2 -> ui2.initialize(this));
 
         this.selected = 0;
         this.selectables.clear();
@@ -65,6 +69,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
     }
 
     private void addUI(UI ui) {
+        ui.initialize(this);
         this.interfaces.add(ui);
 
         ui.getChildren().forEach(this::addUI);
@@ -74,6 +79,10 @@ public class Game extends JPanel implements Loopable, KeyListener {
         for (var i = 0; i < this.selectables.size(); i++) {
             this.selectables.get(i).setSelected(i == this.selected);
         }
+    }
+
+    public void startAnimation(int length, Function<Animation, Animation> builder) {
+        this.animations.add(builder.apply(new Animation(length)).cb(length, this.animations::remove));
     }
 
     @Override
@@ -89,6 +98,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
     @Override
     public void update() {
         new ArrayList<>(this.interfaces).forEach(UI::update);
+        new ArrayList<>(this.animations).forEach(Animation::update);
     }
 
     @Override
@@ -109,6 +119,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
         var g2d = (Graphics2D) g;
 
         new ArrayList<>(this.interfaces).forEach(ui -> ui.render(g2d));
+        new ArrayList<>(this.animations).forEach(animation -> animation.render(g2d));
 
         g2d.setColor(Color.WHITE);
         g2d.drawString(this.updates + " UPS", 10, 20);

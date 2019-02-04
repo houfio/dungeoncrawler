@@ -19,7 +19,7 @@ public class GameUI extends UI {
     public void initialize(Game game) {
         this.game = game;
 
-        this.game.ingame = new Ingame(this.command);
+        this.game.ingame = new Ingame(this.game, this.command);
         this.game.ingame.initialize();
     }
 

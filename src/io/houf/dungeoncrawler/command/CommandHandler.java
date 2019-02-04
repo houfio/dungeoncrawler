@@ -1,10 +1,8 @@
 package io.houf.dungeoncrawler.command;
 
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.command.impl.HelpCommand;
-import io.houf.dungeoncrawler.command.impl.QuitCommand;
+import io.houf.dungeoncrawler.command.impl.*;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
-import io.houf.dungeoncrawler.command.impl.GoCommand;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -14,9 +12,14 @@ import java.util.stream.Collectors;
 
 public class CommandHandler {
     public static final Command[] COMMANDS = {
-        new QuitCommand(),
+        new DropCommand(),
+        new GetCommand(),
+        new GoCommand(),
         new HelpCommand(),
-        new GoCommand()
+        new LookCommand(),
+        new PackCommand(),
+        new QuitCommand(),
+        new UseCommand()
     };
 
     public static List<String> getCommands() {
@@ -46,7 +49,7 @@ public class CommandHandler {
     }
 
     public String getSuggested(String input) {
-        if (input.isEmpty()) {
+        if (input.trim().isEmpty()) {
             return "";
         }
 
