@@ -9,19 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
+    public final PlayerEntity player;
+    public final List<Entity> entities;
+
     public final int x;
     public final int y;
 
     private final Game game;
-    private final List<Entity> entities;
 
     public Room(Game game, int x, int y) {
         this.game = game;
         this.x = x;
         this.y = y;
+        this.player = new PlayerEntity();
         this.entities = new ArrayList<>();
 
-        this.addEntity(new PlayerEntity());
+        this.entities.add(this.player);
     }
 
     public void addEntity(Entity entity) {
@@ -38,13 +41,13 @@ public class Room {
                 return;
             }
 
-            entity.update();
+            entity.update(this.game);
         });
 
         this.entities.removeAll(dead);
     }
 
     public void render(Graphics2D g) {
-        this.entities.forEach(entity -> entity.render(g));
+        this.entities.forEach(entity -> entity.render(this.game, g));
     }
 }

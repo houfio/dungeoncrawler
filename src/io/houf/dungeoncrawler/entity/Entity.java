@@ -1,6 +1,7 @@
 package io.houf.dungeoncrawler.entity;
 
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.ui.Sprite;
 
 import java.awt.*;
 
@@ -15,17 +16,22 @@ public abstract class Entity {
 
     public boolean dead;
 
-    public Entity(float x, float y, int width, int height) {
+    private final Sprite sprite;
+
+    public Entity(Sprite sprite, float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
 
         this.x = x;
         this.y = y;
+
+        this.sprite = sprite;
     }
 
-    public abstract void initialize(Game game);
+    public void initialize(Game game) {
+    }
 
-    public void update() {
+    public void update(Game game) {
         this.x += this.velocityX;
         this.y += this.velocityY;
 
@@ -39,7 +45,15 @@ public abstract class Entity {
         if ((this.y <= 10 && this.velocityY < 0.0f) || (this.y >= 240 - this.height && this.velocityY > 0.0f)) {
             this.velocityY *= -1;
         }
+
+        if (this.sprite != null) {
+            this.sprite.update();
+        }
     }
 
-    public abstract void render(Graphics2D g);
+    public void render(Game game, Graphics2D g) {
+        if (this.sprite != null) {
+            this.sprite.render(100 + (int) this.x, 100 + (int) this.y, g);
+        }
+    }
 }

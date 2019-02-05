@@ -1,39 +1,31 @@
 package io.houf.dungeoncrawler.ui.impl;
 
+import io.houf.dungeoncrawler.Asset;
 import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.ui.UI;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class RoomUI extends UI {
-    private Game game;
-    private BufferedImage room;
-    private BufferedImage carpet;
+    private final BufferedImage room;
+    private final BufferedImage carpet;
 
-    @Override
-    public void initialize(Game game) {
-        this.game = game;
-        try {
-            this.room = ImageIO.read(RoomUI.class.getResourceAsStream("/assets/room.png"));
-            this.carpet = ImageIO.read(RoomUI.class.getResourceAsStream("/assets/carpet.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public RoomUI() {
+        this.room = Asset.read("room");
+        this.carpet = Asset.read("carpet");
     }
 
     @Override
-    public void update() {
-        this.game.ingame.currentRoom().update();
+    public void update(Game game) {
+        game.ingame.currentRoom().update();
     }
 
     @Override
-    public void render(Graphics2D g) {
+    public void render(Game game, Graphics2D g) {
         g.drawImage(this.room, 100, 100, null, null);
 
-        for (var exit : this.game.ingame.getDoors()) {
+        for (var exit : game.ingame.getDoors()) {
             switch (exit) {
                 case NORTH:
                     g.drawImage(this.carpet, 194, 85, 256, 195, 109, 0, 171, 110, null, null);
@@ -50,6 +42,6 @@ public class RoomUI extends UI {
             }
         }
 
-        this.game.ingame.currentRoom().render(g);
+        game.ingame.currentRoom().render(g);
     }
 }

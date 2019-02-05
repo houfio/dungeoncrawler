@@ -1,8 +1,9 @@
 package io.houf.dungeoncrawler.ui.impl;
 
-import io.houf.dungeoncrawler.command.CommandHandler;
-import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.command.CommandHandler;
+import io.houf.dungeoncrawler.Logger;
+import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.ui.UI;
 
 import java.awt.*;
@@ -10,12 +11,11 @@ import java.awt.event.KeyEvent;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandUI extends UI implements Selectable {
+public class CommandUI extends UI implements Selectable, Logger {
     private final StringBuilder command;
     private final CommandHandler handler;
     private final LogUI log;
 
-    private Game game;
     private String suggested = "";
     private boolean selected = false;
     private int blink = 0;
@@ -27,11 +27,6 @@ public class CommandUI extends UI implements Selectable {
     }
 
     @Override
-    public void initialize(Game game) {
-        this.game = game;
-    }
-
-    @Override
     public List<UI> getChildren() {
         return Collections.singletonList(
             this.log
@@ -39,12 +34,12 @@ public class CommandUI extends UI implements Selectable {
     }
 
     @Override
-    public void update() {
+    public void update(Game game) {
         this.blink++;
     }
 
     @Override
-    public void render(Graphics2D g) {
+    public void render(Game game, Graphics2D g) {
         g.setColor(new Color(32, 32, 32));
         g.fillRect(0, 450, 750, 50);
 
@@ -62,13 +57,13 @@ public class CommandUI extends UI implements Selectable {
     }
 
     @Override
-    public void keyPressed(int code, char key) {
+    public void keyPressed(Game game, int code, char key) {
         if (!this.selected) {
             return;
         }
 
         if (code == KeyEvent.VK_ENTER) {
-            this.executeCommand(this.command.toString());
+            this.executeCommand(game, this.command.toString());
 
             this.command.setLength(0);
 
@@ -100,10 +95,19 @@ public class CommandUI extends UI implements Selectable {
         this.selected = selected;
     }
 
-    public void executeCommand(String command) {
-        var result = this.handler.handle(this.game, command);
+    @Override
+    public void executeCommand(Game game, String command) {
+        var result = this.handler.handle(game, command);
 
-        this.log.addLine(result.line, result.color);
         this.suggested = "";
+
+        if (result != null) {
+            this.log.addLine(result.line, result.color);
+        }
+    }
+
+    @Override
+    public void printLine(String text, Color color) {
+        this.log.addLine(text, color);
     }
 }

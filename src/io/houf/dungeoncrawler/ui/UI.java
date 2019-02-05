@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UI {
-    public abstract void initialize(Game game);
-
-    public void cleanup() {
+    public void initialize(Game game) {
     }
 
     public List<UI> getChildren() {
@@ -20,11 +18,11 @@ public abstract class UI {
         return new ArrayList<>();
     }
 
-    public void update() {
+    public void update(Game game) {
     }
 
-    public abstract void render(Graphics2D g);
+    public abstract void render(Game game, Graphics2D g);
 
-    public void keyPressed(int code, char key) {
+    public void keyPressed(Game game, int code, char key) {
     }
 }

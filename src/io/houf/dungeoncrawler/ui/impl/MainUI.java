@@ -28,10 +28,6 @@ public class MainUI extends UI {
     }
 
     @Override
-    public void initialize(Game game) {
-    }
-
-    @Override
     public List<UI> getChildren() {
         return Arrays.asList(
             this.startButton,
@@ -48,7 +44,7 @@ public class MainUI extends UI {
     }
 
     @Override
-    public void render(Graphics2D g) {
+    public void render(Game game, Graphics2D g) {
         g.setFont(Game.BIG_FONT);
         g.setColor(Color.WHITE);
         g.drawString("Dungeon Crawler", 100, 100);

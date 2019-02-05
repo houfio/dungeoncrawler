@@ -26,6 +26,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
     private final List<Animation> animations;
     private final Pattern keyPattern;
 
+    public Logger logger;
     public Ingame ingame;
 
     private int selected = 0;
@@ -56,8 +57,6 @@ public class Game extends JPanel implements Loopable, KeyListener {
     }
 
     public void openUI(UI ui) {
-        this.interfaces.forEach(UI::cleanup);
-
         this.interfaces.clear();
         this.addUI(ui);
 
@@ -96,7 +95,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
     @Override
     public void update() {
-        new ArrayList<>(this.interfaces).forEach(UI::update);
+        new ArrayList<>(this.interfaces).forEach(ui -> ui.update(this));
         new ArrayList<>(this.animations).forEach(Animation::update);
     }
 
@@ -117,7 +116,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
         var g2d = (Graphics2D) g;
 
-        new ArrayList<>(this.interfaces).forEach(ui -> ui.render(g2d));
+        new ArrayList<>(this.interfaces).forEach(ui -> ui.render(this, g2d));
         new ArrayList<>(this.animations).forEach(animation -> animation.render(g2d));
 
         g2d.setColor(Color.WHITE);
@@ -142,7 +141,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
         }
 
         if (code == KeyEvent.VK_BACK_SPACE || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_TAB || this.keyPattern.matcher(String.valueOf(e.getKeyChar())).matches()) {
-            new ArrayList<>(this.interfaces).forEach(ui -> ui.keyPressed(e.getExtendedKeyCode(), e.getKeyChar()));
+            new ArrayList<>(this.interfaces).forEach(ui -> ui.keyPressed(this, e.getExtendedKeyCode(), e.getKeyChar()));
         }
 
         this.updateSelected();

@@ -3,7 +3,6 @@ package io.houf.dungeoncrawler;
 import io.houf.dungeoncrawler.room.Side;
 import io.houf.dungeoncrawler.room.Floor;
 import io.houf.dungeoncrawler.room.Room;
-import io.houf.dungeoncrawler.ui.impl.CommandUI;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -14,19 +13,12 @@ public class Ingame {
     public final Floor floor;
 
     private final Game game;
-    private final Input input;
 
     private int x = 0;
     private int y = 0;
 
-    public Ingame(Game game, CommandUI command) {
+    public Ingame(Game game) {
         this.floor = new Floor(10, 10);
-        this.input = new Input(System.in) {
-            @Override
-            public void handle(String input) {
-                command.executeCommand(input);
-            }
-        };
         this.game = game;
     }
 
@@ -45,12 +37,6 @@ public class Ingame {
         this.floor.addRoom(room2);
         this.floor.addRoom(room3);
         this.floor.addRoom(room4);
-
-        new Thread(this.input::start).start();
-    }
-
-    public void cleanup() {
-        this.input.stop();
     }
 
     public Room currentRoom() {

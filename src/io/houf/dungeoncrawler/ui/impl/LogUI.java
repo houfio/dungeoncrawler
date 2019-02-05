@@ -19,11 +19,7 @@ public class LogUI extends UI {
     }
 
     @Override
-    public void initialize(Game game) {
-    }
-
-    @Override
-    public void render(Graphics2D g) {
+    public void render(Game game, Graphics2D g) {
         g.setColor(Color.DARK_GRAY);
         g.fillRect(450, 0, 300, 450);
 

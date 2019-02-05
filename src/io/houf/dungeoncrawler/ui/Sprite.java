@@ -1,9 +1,9 @@
 package io.houf.dungeoncrawler.ui;
 
-import javax.imageio.ImageIO;
+import io.houf.dungeoncrawler.Asset;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Sprite {
     private final BufferedImage sprite;
@@ -13,8 +13,8 @@ public class Sprite {
     private int tick = 0;
     private int index = 0;
 
-    public Sprite(String sprite, int width, int speed) throws IOException {
-        this.sprite = ImageIO.read(Sprite.class.getResourceAsStream(sprite));
+    public Sprite(String sprite, int width, int speed) {
+        this.sprite = Asset.read(sprite);
         this.width = width;
         this.speed = speed;
     }

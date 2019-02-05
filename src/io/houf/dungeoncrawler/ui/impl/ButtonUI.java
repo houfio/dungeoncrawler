@@ -12,7 +12,6 @@ public abstract class ButtonUI extends UI implements Selectable {
     private final int x;
     private final int y;
 
-    private Game game;
     private boolean selected = false;
 
     protected ButtonUI(String text, int x, int y) {
@@ -24,12 +23,7 @@ public abstract class ButtonUI extends UI implements Selectable {
     public abstract void click(Game game);
 
     @Override
-    public void initialize(Game game) {
-        this.game = game;
-    }
-
-    @Override
-    public void render(Graphics2D g) {
+    public void render(Game game, Graphics2D g) {
         String string = (this.selected ? "> " : "  ") + this.text;
 
         g.setColor(this.selected ? Color.YELLOW : Color.WHITE);
@@ -37,12 +31,12 @@ public abstract class ButtonUI extends UI implements Selectable {
     }
 
     @Override
-    public void keyPressed(int code, char key) {
+    public void keyPressed(Game game, int code, char key) {
         if (!this.selected || code != KeyEvent.VK_ENTER) {
             return;
         }
 
-        this.click(this.game);
+        this.click(game);
     }
 
     @Override

@@ -13,19 +13,11 @@ import java.util.List;
 public class GameUI extends UI {
     private final CommandUI command = new CommandUI();
 
-    private Game game;
-
     @Override
     public void initialize(Game game) {
-        this.game = game;
-
-        this.game.ingame = new Ingame(this.game, this.command);
-        this.game.ingame.initialize();
-    }
-
-    @Override
-    public void cleanup() {
-        this.game.ingame.cleanup();
+        game.logger = this.command;
+        game.ingame = new Ingame(game);
+        game.ingame.initialize();
     }
 
     @Override
@@ -45,6 +37,6 @@ public class GameUI extends UI {
     }
 
     @Override
-    public void render(Graphics2D g) {
+    public void render(Game game, Graphics2D g) {
     }
 }
