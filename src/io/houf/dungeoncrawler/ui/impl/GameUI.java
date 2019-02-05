@@ -32,7 +32,8 @@ public class GameUI extends UI {
     public List<UI> getChildren() {
         return Arrays.asList(
             this.command,
-            new RoomUI()
+            new RoomUI(),
+            new RoseUI()
         );
     }
 

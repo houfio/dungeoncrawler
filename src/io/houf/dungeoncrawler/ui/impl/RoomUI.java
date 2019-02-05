@@ -10,13 +10,15 @@ import java.io.IOException;
 
 public class RoomUI extends UI {
     private Game game;
-    private BufferedImage image;
+    private BufferedImage room;
+    private BufferedImage carpet;
 
     @Override
     public void initialize(Game game) {
         this.game = game;
         try {
-            this.image = ImageIO.read(RoomUI.class.getResourceAsStream("/assets/room.png"));
+            this.room = ImageIO.read(RoomUI.class.getResourceAsStream("/assets/room.png"));
+            this.carpet = ImageIO.read(RoomUI.class.getResourceAsStream("/assets/carpet.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,30 +31,25 @@ public class RoomUI extends UI {
 
     @Override
     public void render(Graphics2D g) {
-        g.drawImage(this.image, 100, 100, null, null);
-
-        var room = this.game.ingame.currentRoom();
-
-        g.setColor(new Color(113, 30, 26));
-        g.fillRect(185, 185, 80, 80);
+        g.drawImage(this.room, 100, 100, null, null);
 
         for (var exit : this.game.ingame.getDoors()) {
             switch (exit) {
                 case NORTH:
-                    g.fillRect(185, 75, 80, 110);
+                    g.drawImage(this.carpet, 194, 85, 256, 195, 109, 0, 171, 110, null, null);
                     break;
                 case EAST:
-                    g.fillRect(265, 185, 110, 80);
+                    g.drawImage(this.carpet, 255, 194, 365, 256, 170, 109, 280, 171, null, null);
                     break;
                 case SOUTH:
-                    g.fillRect(185, 265, 80, 110);
+                    g.drawImage(this.carpet, 194, 255, 256, 365, 109, 170, 171, 280, null, null);
                     break;
                 case WEST:
-                    g.fillRect(75, 185, 110, 80);
+                    g.drawImage(this.carpet, 85, 194, 195, 256, 0, 109, 110, 171, null, null);
                     break;
             }
         }
 
-        room.render(g);
+        this.game.ingame.currentRoom().render(g);
     }
 }

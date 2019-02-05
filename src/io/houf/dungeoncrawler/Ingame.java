@@ -31,11 +31,20 @@ public class Ingame {
     }
 
     public void initialize() {
-        var room0 = new Room(this.game, 0, 0);
+        this.x = 1;
+        this.y = 1;
+
+        var room0 = new Room(this.game, 1, 1);
         var room1 = new Room(this.game, 0, 1);
+        var room2 = new Room(this.game, 1, 0);
+        var room3 = new Room(this.game, 2, 1);
+        var room4 = new Room(this.game, 1, 2);
 
         this.floor.addRoom(room0);
         this.floor.addRoom(room1);
+        this.floor.addRoom(room2);
+        this.floor.addRoom(room3);
+        this.floor.addRoom(room4);
 
         new Thread(this.input::start).start();
     }
