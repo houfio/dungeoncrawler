@@ -14,6 +14,7 @@ public class CommandHandler {
     public static final Command[] COMMANDS = {
         new DropCommand(),
         new GetCommand(),
+        new GnomeCommand(),
         new GoCommand(),
         new HelpCommand(),
         new LookCommand(),

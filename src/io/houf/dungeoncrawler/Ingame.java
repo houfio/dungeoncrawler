@@ -59,27 +59,37 @@ public class Ingame {
         }
 
         this.game.startAnimation(50, a -> a
-            .at(0, g -> {
+            .action(0, () -> {
+                this.currentRoom().player.x += side.x * (114.0d / 25.0d);
+                this.currentRoom().player.y += side.y * (109.0d / 25.0d);
+            })
+            .keyframe(0, g -> {
                 g.setColor(new Color(0, 0, 0, 55));
                 g.fillRect(75, 75, 300, 300);
             })
-            .at(10, g -> {
+            .keyframe(10, g -> {
                 g.setColor(new Color(0, 0, 0, 155));
                 g.fillRect(75, 75, 300, 300);
             })
-            .at(20, g -> {
+            .keyframe(20, g -> {
                 g.setColor(new Color(0, 0, 0, 255));
                 g.fillRect(75, 75, 300, 300);
             })
-            .cb(20, a1 -> {
+            .callback(25, a1 -> {
                 this.x = xNew;
                 this.y = yNew;
+
+                if (side.horizontal) {
+                    this.currentRoom().player.x = side == Side.EAST ? 0 : 228;
+                } else {
+                    this.currentRoom().player.y = side == Side.SOUTH ? 0 : 218;
+                }
             })
-            .at(30, g -> {
+            .keyframe(30, g -> {
                 g.setColor(new Color(0, 0, 0, 155));
                 g.fillRect(75, 75, 300, 300);
             })
-            .at(40, g -> {
+            .keyframe(40, g -> {
                 g.setColor(new Color(0, 0, 0, 55));
                 g.fillRect(75, 75, 300, 300);
             }));

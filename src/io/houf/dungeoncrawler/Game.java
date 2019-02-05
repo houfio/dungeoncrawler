@@ -80,7 +80,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
     }
 
     public void startAnimation(int length, Function<Animation, Animation> builder) {
-        this.animations.add(builder.apply(new Animation(length)).cb(length, this.animations::remove));
+        this.animations.add(builder.apply(new Animation(length)).callback(length, this.animations::remove));
     }
 
     @Override
@@ -122,6 +122,12 @@ public class Game extends JPanel implements Loopable, KeyListener {
         g2d.setColor(Color.WHITE);
         g2d.drawString(this.updates + " UPS", 10, 20);
         g2d.drawString(this.frames + " FPS", 10, 35);
+
+        if (this.ingame != null) {
+            var player = this.ingame.currentRoom().player;
+
+            g2d.drawString("x: " + player.x + ", y: " + player.y, 10, 50);
+        }
     }
 
     @Override

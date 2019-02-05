@@ -20,8 +20,10 @@ public class Loop implements Runnable {
         this.loopable.start();
 
         var lastTime = System.nanoTime();
-        var delta = 0.0d;
+        var updateDelta = 0.0d;
+        var frameDelta = 0.0d;
         var upns = 1000000000.0d / this.ups;
+        var fpns = 1000000000.0d / 300.0d;
         var timer = System.currentTimeMillis();
 
         var updates = 0;
@@ -30,18 +32,23 @@ public class Loop implements Runnable {
         while (this.running) {
             var now = System.nanoTime();
 
-            delta += (now - lastTime) / upns;
+            updateDelta += (now - lastTime) / upns;
+            frameDelta += (now - lastTime) / fpns;
             lastTime = now;
-            frames++;
 
-            if (delta >= 1.0) {
+            if (updateDelta >= 1.0d) {
                 this.loopable.update();
 
                 updates++;
-                delta--;
+                updateDelta--;
             }
 
-            this.loopable.render();
+            if (frameDelta >= 1.0d) {
+                this.loopable.render();
+
+                frames++;
+                frameDelta--;
+            }
 
             if (System.currentTimeMillis() - timer > 1000.0d) {
                 timer += 1000.0d;

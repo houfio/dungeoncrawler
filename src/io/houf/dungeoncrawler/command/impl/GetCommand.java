@@ -10,8 +10,6 @@ import io.houf.dungeoncrawler.item.Item;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class GetCommand implements Command {
