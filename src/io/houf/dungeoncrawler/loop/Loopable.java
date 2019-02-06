@@ -8,6 +8,4 @@ public interface Loopable {
     void update();
 
     void render();
-
-    void setLoopData(int updates, int frames);
 }

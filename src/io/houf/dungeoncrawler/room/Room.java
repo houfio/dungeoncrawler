@@ -2,6 +2,7 @@ package io.houf.dungeoncrawler.room;
 
 import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.entity.Entity;
+import io.houf.dungeoncrawler.entity.GnomeEntity;
 import io.houf.dungeoncrawler.entity.PlayerEntity;
 
 import java.awt.*;
@@ -15,10 +16,9 @@ public class Room {
     public final int x;
     public final int y;
 
-    private final Game game;
+    private boolean entered = false;
 
-    public Room(Game game, int x, int y) {
-        this.game = game;
+    public Room( int x, int y) {
         this.x = x;
         this.y = y;
         this.player = new PlayerEntity();
@@ -27,12 +27,12 @@ public class Room {
         this.entities.add(this.player);
     }
 
-    public void addEntity(Entity entity) {
+    public void addEntity(Game game, Entity entity) {
         this.entities.add(entity);
-        entity.initialize(this.game);
+        entity.initialize(game);
     }
 
-    public void update() {
+    public void update(Game game) {
         var dead = new ArrayList<Entity>();
         this.entities.forEach(entity -> {
             if (entity.dead) {
@@ -41,13 +41,21 @@ public class Room {
                 return;
             }
 
-            entity.update(this.game);
+            entity.update(game);
         });
 
         this.entities.removeAll(dead);
     }
 
-    public void render(Graphics2D g) {
-        this.entities.forEach(entity -> entity.render(this.game, g));
+    public void render(Game game, Graphics2D g) {
+        this.entities.forEach(entity -> entity.render(game, g));
+    }
+
+    public void onEnter(Game game) {
+        if (!this.entered) {
+            this.addEntity(game, new GnomeEntity(25, 25));
+        }
+
+        this.entered = true;
     }
 }

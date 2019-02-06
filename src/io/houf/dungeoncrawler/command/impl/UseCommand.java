@@ -35,9 +35,14 @@ public class UseCommand implements Command {
             return new LogUI.RawLogLine("You don't have that item", Color.ORANGE);
         }
 
-        var index = Arrays.asList(player.items).indexOf(item);
+        var index = player.items.indexOf(item);
+        var replacement = item.onUse(game);
 
-        player.items[index] = item.onUse(game);
+        if (replacement == null) {
+            player.items.remove(index);
+        } else {
+            player.items.set(index, replacement);
+        }
 
         return null;
     }

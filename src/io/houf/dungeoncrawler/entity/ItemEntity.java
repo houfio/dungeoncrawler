@@ -1,5 +1,6 @@
 package io.houf.dungeoncrawler.entity;
 
+import io.houf.dungeoncrawler.Asset;
 import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.item.Item;
 
@@ -7,6 +8,8 @@ import java.awt.*;
 
 public class ItemEntity extends Entity {
     public final Item item;
+
+    public double angle;
 
     public ItemEntity(Item item, float x, float y) {
         super(null, x, y, 16, 16);
@@ -17,12 +20,14 @@ public class ItemEntity extends Entity {
     @Override
     public void update(Game game) {
         super.update(game);
+
+        this.angle += Math.sqrt(Math.pow(this.velocityX, 2) + Math.pow(this.velocityY, 2));
     }
 
     @Override
     public void render(Game game, Graphics2D g) {
         super.render(game, g);
 
-        g.drawImage(this.item.image, 100 + (int) this.x, 100 + (int) this.y, null, null);
+        g.drawImage(Asset.rotate(this.item.image, this.angle), 100 + (int) this.x, 100 + (int) this.y, null, null);
     }
 }

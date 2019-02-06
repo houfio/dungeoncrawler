@@ -18,7 +18,7 @@ public class RoomUI extends UI {
 
     @Override
     public void update(Game game) {
-        game.ingame.currentRoom().update();
+        game.ingame.currentRoom().update(game);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class RoomUI extends UI {
             }
         }
 
-        game.ingame.currentRoom().render(g);
+        game.ingame.currentRoom().render(game, g);
     }
 }

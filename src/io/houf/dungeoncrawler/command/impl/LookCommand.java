@@ -4,7 +4,11 @@ import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.command.Argument;
 import io.houf.dungeoncrawler.command.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
+import io.houf.dungeoncrawler.entity.ItemEntity;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
+
+import java.awt.*;
+import java.util.stream.Collectors;
 
 public class LookCommand implements Command {
     @Override
@@ -19,6 +23,23 @@ public class LookCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        throw new RuntimeException("no u");
+        var room = game.ingame.currentRoom();
+        var items = room.entities.stream()
+            .filter(e -> e instanceof ItemEntity)
+            .map(e -> ((ItemEntity) e).item.name)
+            .distinct()
+            .collect(Collectors.toList());
+        var doors = game.ingame.getDoors()
+            .stream()
+            .map(d -> d.name().toLowerCase())
+            .collect(Collectors.toList());
+
+        var d = "You see the following doors in the room: " + String.join(", ", doors) + ".";
+
+        var i = items.size() == 0
+            ? "You couldn't find any items on the floor."
+            : "You found the following items: " + String.join(", ", items) + ".";
+
+        return new LogUI.RawLogLine(d + " " + i, Color.GREEN);
     }
 }

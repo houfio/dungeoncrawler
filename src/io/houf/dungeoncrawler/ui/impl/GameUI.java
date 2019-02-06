@@ -25,7 +25,8 @@ public class GameUI extends UI {
         return Arrays.asList(
             this.command,
             new RoomUI(),
-            new RoseUI()
+            new RoseUI(),
+            new PackUI()
         );
     }
 

@@ -24,10 +24,6 @@ public class Loop implements Runnable {
         var frameDelta = 0.0d;
         var upns = 1000000000.0d / this.ups;
         var fpns = 1000000000.0d / 300.0d;
-        var timer = System.currentTimeMillis();
-
-        var updates = 0;
-        var frames = 0;
 
         while (this.running) {
             var now = System.nanoTime();
@@ -39,24 +35,13 @@ public class Loop implements Runnable {
             if (updateDelta >= 1.0d) {
                 this.loopable.update();
 
-                updates++;
                 updateDelta--;
             }
 
             if (frameDelta >= 1.0d) {
                 this.loopable.render();
 
-                frames++;
                 frameDelta--;
-            }
-
-            if (System.currentTimeMillis() - timer > 1000.0d) {
-                timer += 1000.0d;
-
-                this.loopable.setLoopData(updates, frames);
-
-                updates = 0;
-                frames = 0;
             }
         }
 

@@ -30,8 +30,6 @@ public class Game extends JPanel implements Loopable, KeyListener {
     public Ingame ingame;
 
     private int selected = 0;
-    private int updates;
-    private int frames;
 
     public Game() {
         this.setFocusable(true);
@@ -105,12 +103,6 @@ public class Game extends JPanel implements Loopable, KeyListener {
     }
 
     @Override
-    public void setLoopData(int updates, int frames) {
-        this.updates = updates;
-        this.frames = frames;
-    }
-
-    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -118,16 +110,6 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
         new ArrayList<>(this.interfaces).forEach(ui -> ui.render(this, g2d));
         new ArrayList<>(this.animations).forEach(animation -> animation.render(g2d));
-
-        g2d.setColor(Color.WHITE);
-        g2d.drawString(this.updates + " UPS", 10, 20);
-        g2d.drawString(this.frames + " FPS", 10, 35);
-
-        if (this.ingame != null) {
-            var player = this.ingame.currentRoom().player;
-
-            g2d.drawString("x: " + player.x + ", y: " + player.y, 10, 50);
-        }
     }
 
     @Override
