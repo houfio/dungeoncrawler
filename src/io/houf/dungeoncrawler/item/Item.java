@@ -19,6 +19,10 @@ public class Item {
         return this;
     }
 
+    public boolean drop() {
+        return true;
+    }
+
     public static Item getItem(String name, List<Item> items) {
         return items.stream()
             .filter(i -> i != null && i.name.equals(name))

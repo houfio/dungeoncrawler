@@ -1,6 +1,8 @@
 package io.houf.dungeoncrawler.entity;
 
-import io.houf.dungeoncrawler.item.*;
+import io.houf.dungeoncrawler.item.GunItem;
+import io.houf.dungeoncrawler.item.Item;
+import io.houf.dungeoncrawler.item.KeyItem;
 import io.houf.dungeoncrawler.ui.Sprite;
 
 import java.util.ArrayList;
@@ -13,8 +15,6 @@ public class PlayerEntity extends Entity {
         super(new Sprite("player", 22, 5), 114, 109, 22, 32);
 
         this.items = new ArrayList<>() {{
-            add(new BananaItem());
-            add(new StickItem());
             add(new KeyItem());
             add(new GunItem());
         }};

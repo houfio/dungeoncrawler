@@ -20,6 +20,8 @@ public class GunItem extends Item {
             .orElse(null);
 
         if (enemy == null) {
+            game.getLogger().printLine("You couldn't decide where to point the barrel, so you decided not to pull the trigger.", Color.ORANGE);
+
             return this;
         }
 
@@ -37,5 +39,10 @@ public class GunItem extends Item {
         game.getLogger().printLine("You pulled the trigger. The gun made a loud bang.", Color.ORANGE);
 
         return this;
+    }
+
+    @Override
+    public boolean drop() {
+        return false;
     }
 }

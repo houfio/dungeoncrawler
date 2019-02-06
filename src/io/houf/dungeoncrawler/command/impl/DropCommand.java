@@ -34,15 +34,12 @@ public class DropCommand implements Command {
 
         if (item == null) {
             return new LogUI.RawLogLine("You couldn't find that item in your backpack", Color.ORANGE);
+        } else if (!item.drop()) {
+            return new LogUI.RawLogLine("You decided not to drop your " + item.name + ".", Color.ORANGE);
         }
 
         room.player.items.remove(item);
-
-        var entity = new ItemEntity(item, 114, 109);
-        entity.setVelocityX((float) Math.random() * 100.0f - 50.0f);
-        entity.setVelocityY((float) Math.random() * 100.0f - 50.0f);
-
-        room.addEntity(game, entity);
+        room.addEntity(game, new ItemEntity(item, 114, 109, (float) Math.random() * 100.0f - 50.0f, (float) Math.random() * 100.0f - 50.0f));
 
         return new LogUI.RawLogLine("You dropped the " + name + " on the floor", Color.PINK);
     }

@@ -3,10 +3,12 @@ package io.houf.dungeoncrawler.room;
 import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.entity.Entity;
 import io.houf.dungeoncrawler.entity.GnomeEntity;
+import io.houf.dungeoncrawler.entity.ItemEntity;
 import io.houf.dungeoncrawler.entity.PlayerEntity;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Room {
@@ -49,6 +51,17 @@ public class Room {
                 .forEach(e1 -> entity.collide(game, e1));
         });
 
+        dead.forEach(d -> {
+            var drops = d.drops(game);
+
+            if (drops == null) {
+                return;
+            }
+
+            Arrays.stream(drops)
+                .filter(drop -> Math.random() > 1.0d - drop.chance)
+                .forEach(drop -> this.addEntity(game, new ItemEntity(drop.item, d.getX(), d.getY(), this.getRandomVelocity(), this.getRandomVelocity())));
+        });
         this.entities.removeAll(dead);
     }
 
@@ -82,5 +95,9 @@ public class Room {
 
     private boolean chance() {
         return Math.random() > 0.5d;
+    }
+
+    private float getRandomVelocity() {
+        return (float) Math.random() * 20.0f - 10.0f;
     }
 }

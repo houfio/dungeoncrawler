@@ -1,6 +1,8 @@
 package io.houf.dungeoncrawler.entity;
 
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.item.BananaItem;
+import io.houf.dungeoncrawler.item.StickItem;
 import io.houf.dungeoncrawler.ui.Sprite;
 
 import java.awt.*;
@@ -18,5 +20,13 @@ public class GnomeEntity extends Entity {
     @Override
     public boolean hostile() {
         return true;
+    }
+
+    @Override
+    public Drop[] drops(Game game) {
+        return new Drop[] {
+            new Drop(new StickItem(), .25d),
+            new Drop(new BananaItem(), .25d)
+        };
     }
 }

@@ -11,10 +11,13 @@ public class ItemEntity extends Entity {
 
     public double angle;
 
-    public ItemEntity(Item item, float x, float y) {
+    public ItemEntity(Item item, float x, float y, float velocityX, float velocityY) {
         super(null, x, y, 16, 16);
 
         this.item = item;
+
+        this.setVelocityX(velocityX);
+        this.setVelocityY(velocityY);
     }
 
     @Override
