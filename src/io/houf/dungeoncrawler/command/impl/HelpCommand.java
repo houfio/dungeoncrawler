@@ -1,8 +1,8 @@
 package io.houf.dungeoncrawler.command.impl;
 
+import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.command.*;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
-import io.houf.dungeoncrawler.Game;
 
 import java.awt.*;
 import java.util.Arrays;

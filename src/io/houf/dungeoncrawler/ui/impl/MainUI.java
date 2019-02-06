@@ -1,7 +1,7 @@
 package io.houf.dungeoncrawler.ui.impl;
 
-import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.ui.UI;
 
 import java.awt.*;

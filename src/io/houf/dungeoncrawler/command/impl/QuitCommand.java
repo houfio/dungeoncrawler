@@ -1,11 +1,11 @@
 package io.houf.dungeoncrawler.command.impl;
 
+import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.command.Argument;
 import io.houf.dungeoncrawler.command.ArgumentMap;
+import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 import io.houf.dungeoncrawler.ui.impl.MainUI;
-import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.command.Command;
 
 import java.awt.*;
 

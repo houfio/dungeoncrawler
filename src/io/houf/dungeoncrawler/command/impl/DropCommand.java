@@ -10,8 +10,6 @@ import io.houf.dungeoncrawler.item.Item;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class DropCommand implements Command {
     private static final Argument<String> ITEM = new Argument<>("item", "The item to drop to the room", true, Validator.STRING_VALIDATOR);
@@ -30,21 +28,21 @@ public class DropCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        var player = game.ingame.currentRoom().player;
+        var room = game.getCurrent().currentRoom();
         var name = arguments.get(DropCommand.ITEM);
-        var item = Item.getItem(name, player.items);
+        var item = Item.getItem(name, room.player.items);
 
         if (item == null) {
             return new LogUI.RawLogLine("You don't have that item in your backpack", Color.ORANGE);
         }
 
-        player.items.remove(item);
+        room.player.items.remove(item);
 
         var entity = new ItemEntity(item, 114, 109);
-        entity.velocityX = (float) (Math.random() * 100 - 50);
-        entity.velocityY = (float) (Math.random() * 100 - 50);
+        entity.setVelocityX((float) Math.random() * 100.0f - 50.0f);
+        entity.setVelocityY((float) Math.random() * 100.0f - 50.0f);
 
-        game.ingame.currentRoom().addEntity(game, entity);
+        room.addEntity(game, entity);
 
         return new LogUI.RawLogLine("You dropped the " + name + " on the floor", Color.PINK);
     }

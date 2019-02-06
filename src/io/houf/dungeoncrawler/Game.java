@@ -26,9 +26,8 @@ public class Game extends JPanel implements Loopable, KeyListener {
     private final List<Animation> animations;
     private final Pattern keyPattern;
 
-    public Logger logger;
-    public Ingame ingame;
-
+    private Logger logger;
+    private Current current;
     private int selected = 0;
 
     public Game() {
@@ -137,5 +136,20 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+
+    public void initialize(Logger logger) {
+        this.logger = logger;
+        this.current = new Current(this);
+
+        this.current.initialize();
+    }
+
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    public Current getCurrent() {
+        return this.current;
     }
 }

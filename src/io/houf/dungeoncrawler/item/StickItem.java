@@ -10,7 +10,7 @@ public class StickItem extends Item {
     }
 
     public Item onUse(Game game) {
-        game.logger.printLine("You swing the stick in the wild. It breaks.", Color.MAGENTA);
+        game.getLogger().printLine("You swing the stick in the wild. It breaks.", Color.MAGENTA);
 
         return null;
     }

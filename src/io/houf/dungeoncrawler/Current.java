@@ -1,15 +1,15 @@
 package io.houf.dungeoncrawler;
 
-import io.houf.dungeoncrawler.room.Side;
 import io.houf.dungeoncrawler.room.Floor;
 import io.houf.dungeoncrawler.room.Room;
+import io.houf.dungeoncrawler.room.Side;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Ingame {
+public class Current {
     public final Floor floor;
 
     private final Game game;
@@ -17,7 +17,7 @@ public class Ingame {
     private int x = 0;
     private int y = 0;
 
-    public Ingame(Game game) {
+    public Current(Game game) {
         this.floor = new Floor(10, 10);
         this.game = game;
     }
@@ -98,8 +98,10 @@ public class Ingame {
 
         this.game.startAnimation(50, a -> a
             .action(0, () -> {
-                this.currentRoom().player.x += side.x * (114.0d / 25.0d);
-                this.currentRoom().player.y += side.y * (109.0d / 25.0d);
+                var player = this.currentRoom().player;
+
+                player.setX(player.getX() + side.x * (114.0f / 25.0f));
+                player.setY(player.getY() + side.y * (109.0f / 25.0f));
             })
             .keyframe(0, g -> {
                 g.setColor(new Color(0, 0, 0, 55));
@@ -117,13 +119,15 @@ public class Ingame {
                 this.x = xNew;
                 this.y = yNew;
 
+                var room = this.currentRoom();
+
                 if (side.horizontal) {
-                    this.currentRoom().player.x = side == Side.EAST ? 0 : 228;
+                    room.player.setX(side == Side.EAST ? 0 : 228);
                 } else {
-                    this.currentRoom().player.y = side == Side.SOUTH ? 0 : 218;
+                    room.player.setY(side == Side.SOUTH ? 0 : 218);
                 }
 
-                this.currentRoom().onEnter(this.game);
+                room.onEnter(this.game);
             })
             .keyframe(30, g -> {
                 g.setColor(new Color(0, 0, 0, 155));

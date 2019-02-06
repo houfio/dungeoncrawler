@@ -22,7 +22,7 @@ public class PackCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        var items = game.ingame.currentRoom().player.items
+        var items = game.getCurrent().currentRoom().player.items
             .stream()
             .map(i -> i.name)
             .collect(Collectors.toList());

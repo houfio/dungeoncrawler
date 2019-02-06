@@ -10,7 +10,7 @@ public class BananaItem extends Item {
     }
 
     public Item onUse(Game game) {
-        game.logger.printLine("You peeled the banana", Color.YELLOW);
+        game.getLogger().printLine("You peeled the banana", Color.YELLOW);
 
         return new PeelItem();
     }

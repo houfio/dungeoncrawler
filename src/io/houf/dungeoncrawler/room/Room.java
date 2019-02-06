@@ -35,7 +35,7 @@ public class Room {
     public void update(Game game) {
         var dead = new ArrayList<Entity>();
         this.entities.forEach(entity -> {
-            if (entity.dead) {
+            if (entity.isDead()) {
                 dead.add(entity);
 
                 return;

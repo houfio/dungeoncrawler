@@ -5,8 +5,8 @@ import io.houf.dungeoncrawler.command.Argument;
 import io.houf.dungeoncrawler.command.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.command.OptionValidator;
-import io.houf.dungeoncrawler.ui.impl.LogUI;
 import io.houf.dungeoncrawler.room.Side;
+import io.houf.dungeoncrawler.ui.impl.LogUI;
 
 import java.awt.*;
 
@@ -29,7 +29,7 @@ public class GoCommand implements Command {
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
         var side = arguments.get(GoCommand.SIDE);
 
-        if (!game.ingame.move(Side.valueOf(side.toUpperCase()))) {
+        if (!game.getCurrent().move(Side.valueOf(side.toUpperCase()))) {
             return new LogUI.RawLogLine("You could't walk to the " + side, Color.ORANGE);
         }
 

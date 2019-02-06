@@ -1,8 +1,8 @@
 package io.houf.dungeoncrawler.ui.impl;
 
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.command.CommandHandler;
 import io.houf.dungeoncrawler.Logger;
+import io.houf.dungeoncrawler.command.CommandHandler;
 import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.ui.UI;
 

@@ -23,13 +23,13 @@ public class LookCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        var room = game.ingame.currentRoom();
-        var items = room.entities.stream()
+        var current = game.getCurrent();
+        var items = current.currentRoom().entities.stream()
             .filter(e -> e instanceof ItemEntity)
             .map(e -> ((ItemEntity) e).item.name)
             .distinct()
             .collect(Collectors.toList());
-        var doors = game.ingame.getDoors()
+        var doors = current.getDoors()
             .stream()
             .map(d -> d.name().toLowerCase())
             .collect(Collectors.toList());

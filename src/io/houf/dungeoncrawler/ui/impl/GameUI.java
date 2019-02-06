@@ -1,8 +1,7 @@
 package io.houf.dungeoncrawler.ui.impl;
 
-import io.houf.dungeoncrawler.Ingame;
-import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.ui.UI;
 
 import java.awt.*;
@@ -15,9 +14,7 @@ public class GameUI extends UI {
 
     @Override
     public void initialize(Game game) {
-        game.logger = this.command;
-        game.ingame = new Ingame(game);
-        game.ingame.initialize();
+        game.initialize(this.command);
     }
 
     @Override

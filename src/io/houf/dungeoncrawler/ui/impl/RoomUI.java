@@ -18,14 +18,16 @@ public class RoomUI extends UI {
 
     @Override
     public void update(Game game) {
-        game.ingame.currentRoom().update(game);
+        game.getCurrent().currentRoom().update(game);
     }
 
     @Override
     public void render(Game game, Graphics2D g) {
+        var current = game.getCurrent();
+
         g.drawImage(this.room, 100, 100, null, null);
 
-        for (var exit : game.ingame.getDoors()) {
+        for (var exit : current.getDoors()) {
             switch (exit) {
                 case NORTH:
                     g.drawImage(this.carpet, 194, 85, 256, 195, 109, 0, 171, 110, null, null);
@@ -42,6 +44,6 @@ public class RoomUI extends UI {
             }
         }
 
-        game.ingame.currentRoom().render(game, g);
+        current.currentRoom().render(game, g);
     }
 }

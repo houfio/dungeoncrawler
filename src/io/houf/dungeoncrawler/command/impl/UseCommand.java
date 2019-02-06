@@ -9,7 +9,6 @@ import io.houf.dungeoncrawler.item.Item;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
 import java.awt.*;
-import java.util.Arrays;
 
 public class UseCommand implements Command {
     private static final Argument<String> ITEM = new Argument<>("item", "The item to use", true, Validator.STRING_VALIDATOR);
@@ -28,7 +27,7 @@ public class UseCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        var player = game.ingame.currentRoom().player;
+        var player = game.getCurrent().currentRoom().player;
         var item = Item.getItem(arguments.get(UseCommand.ITEM), player.items);
 
         if (item == null) {

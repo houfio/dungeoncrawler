@@ -9,12 +9,12 @@ public abstract class Entity {
     public final int width;
     public final int height;
 
-    public float x;
-    public float y;
-    public float velocityX;
-    public float velocityY;
+    private float x;
+    private float y;
+    private float velocityX;
+    private float velocityY;
 
-    public boolean dead;
+    private boolean dead;
 
     private final Sprite sprite;
 
@@ -55,5 +55,45 @@ public abstract class Entity {
         if (this.sprite != null) {
             this.sprite.render(100 + (int) this.x, 100 + (int) this.y, g);
         }
+    }
+
+    public float getX() {
+        return this.x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return this.y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getVelocityX() {
+        return this.velocityX;
+    }
+
+    public void setVelocityX(float x) {
+        this.velocityX = x;
+    }
+
+    public float getVelocityY() {
+        return this.velocityY;
+    }
+
+    public void setVelocityY(float y) {
+        this.velocityY = y;
+    }
+
+    public boolean isDead() {
+        return this.dead;
+    }
+
+    public void setDead() {
+        this.dead = true;
     }
 }

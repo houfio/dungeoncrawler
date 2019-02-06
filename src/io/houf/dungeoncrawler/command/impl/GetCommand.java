@@ -10,7 +10,6 @@ import io.houf.dungeoncrawler.item.Item;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
 import java.awt.*;
-import java.util.stream.IntStream;
 
 public class GetCommand implements Command {
     private static final Argument<String> ITEM = new Argument<>("item", "The item to get from the room", true, Validator.STRING_VALIDATOR);
@@ -29,7 +28,7 @@ public class GetCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        var room = game.ingame.currentRoom();
+        var room = game.getCurrent().currentRoom();
         var player = room.player;
 
         if (player.items.size() > 4) {
@@ -51,7 +50,7 @@ public class GetCommand implements Command {
             return new LogUI.RawLogLine("You can't find that item on the floor", Color.ORANGE);
         }
 
-        entity.dead = true;
+        entity.setDead();
         player.items.add(((ItemEntity) entity).item);
 
         return new LogUI.RawLogLine("You picked up the " + name + " from the floor", Color.GREEN);
