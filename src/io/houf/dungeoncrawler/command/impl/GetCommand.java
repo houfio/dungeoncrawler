@@ -47,7 +47,7 @@ public class GetCommand implements Command {
             .orElse(null);
 
         if (entity == null) {
-            return new LogUI.RawLogLine("You can't find that item on the floor", Color.ORANGE);
+            return new LogUI.RawLogLine("You couldn't find that item on the floor", Color.ORANGE);
         }
 
         entity.setDead();

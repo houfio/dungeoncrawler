@@ -14,4 +14,9 @@ public class GnomeEntity extends Entity {
     public void initialize(Game game) {
         game.getLogger().printLine("I'm not a gnelf, I'm not a gnoblin, I'm a gnome!", new Color(0, 190, 255));
     }
+
+    @Override
+    public boolean hostile() {
+        return true;
+    }
 }

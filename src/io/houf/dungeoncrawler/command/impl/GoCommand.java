@@ -5,6 +5,7 @@ import io.houf.dungeoncrawler.command.Argument;
 import io.houf.dungeoncrawler.command.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.command.OptionValidator;
+import io.houf.dungeoncrawler.entity.Entity;
 import io.houf.dungeoncrawler.room.Side;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
@@ -28,8 +29,11 @@ public class GoCommand implements Command {
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
         var side = arguments.get(GoCommand.SIDE);
+        var hasHostile = game.getCurrent().currentRoom().entities.stream().anyMatch(Entity::hostile);
 
-        if (!game.getCurrent().move(Side.valueOf(side.toUpperCase()))) {
+        if (hasHostile) {
+            return new LogUI.RawLogLine("There are monsters in the room and they block your way.", Color.ORANGE);
+        } else if (!game.getCurrent().move(Side.valueOf(side.toUpperCase()))) {
             return new LogUI.RawLogLine("You could't walk to the " + side, Color.ORANGE);
         }
 

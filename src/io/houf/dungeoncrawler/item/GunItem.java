@@ -1,8 +1,8 @@
 package io.houf.dungeoncrawler.item;
 
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.entity.BulletEntity;
 import io.houf.dungeoncrawler.entity.Entity;
-import io.houf.dungeoncrawler.entity.GnomeEntity;
 
 import java.awt.*;
 
@@ -12,11 +12,29 @@ public class GunItem extends Item {
     }
 
     public Item onUse(Game game) {
-        game.getCurrent().currentRoom().entities.stream()
-            .filter(e -> e instanceof GnomeEntity)
-            .forEach(Entity::setDead);
+        var room = game.getCurrent().currentRoom();
+        var player = room.player;
+        var enemy = room.entities.stream()
+            .filter(Entity::hostile)
+            .findFirst()
+            .orElse(null);
 
-        game.getLogger().printLine("You shot the gun. It made a loud bang.", Color.ORANGE);
+        if (enemy == null) {
+            return this;
+        }
+
+        var xEnemy = enemy.getX() + enemy.width / 2;
+        var yEnemy = enemy.getY() + enemy.height / 2;
+        var xPlayer = player.getX() + player.width / 2;
+        var yPlayer = player.getY() + player.height / 2;
+
+        var xDelta = xEnemy - xPlayer;
+        var yDelta = yEnemy - yPlayer;
+        var radians = Math.atan2(yDelta, xDelta);
+
+        room.addEntity(game, new BulletEntity(xPlayer, yPlayer, (float) Math.cos(radians) * 20.0f, (float) Math.sin(radians) * 20.0f));
+
+        game.getLogger().printLine("You pulled the trigger. The gun made a loud bang.", Color.ORANGE);
 
         return this;
     }

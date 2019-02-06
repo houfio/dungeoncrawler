@@ -17,8 +17,13 @@ public abstract class Entity {
     private boolean dead;
 
     private final Sprite sprite;
+    private final float gravity;
 
     public Entity(Sprite sprite, float x, float y, int width, int height) {
+        this(sprite, x, y, width, height, 0.9f);
+    }
+
+    public Entity(Sprite sprite, float x, float y, int width, int height, float gravity) {
         this.width = width;
         this.height = height;
 
@@ -26,6 +31,7 @@ public abstract class Entity {
         this.y = y;
 
         this.sprite = sprite;
+        this.gravity = gravity;
     }
 
     public void initialize(Game game) {
@@ -35,8 +41,8 @@ public abstract class Entity {
         this.x += this.velocityX;
         this.y += this.velocityY;
 
-        this.velocityX *= 0.9d;
-        this.velocityY *= 0.9d;
+        this.velocityX *= this.gravity;
+        this.velocityY *= this.gravity;
 
         if ((this.x <= 10 && this.velocityX < 0.0f) || (this.x >= 240 - this.width && this.velocityX > 0.0f)) {
             this.velocityX *= -1;
@@ -55,6 +61,13 @@ public abstract class Entity {
         if (this.sprite != null) {
             this.sprite.render(100 + (int) this.x, 100 + (int) this.y, g);
         }
+    }
+
+    public void collide(Game game, Entity entity) {
+    }
+
+    public boolean hostile() {
+        return false;
     }
 
     public float getX() {

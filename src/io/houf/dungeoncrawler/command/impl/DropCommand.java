@@ -33,7 +33,7 @@ public class DropCommand implements Command {
         var item = Item.getItem(name, room.player.items);
 
         if (item == null) {
-            return new LogUI.RawLogLine("You don't have that item in your backpack", Color.ORANGE);
+            return new LogUI.RawLogLine("You couldn't find that item in your backpack", Color.ORANGE);
         }
 
         room.player.items.remove(item);
