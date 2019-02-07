@@ -1,12 +1,26 @@
 package io.houf.dungeoncrawler.entity;
 
-import io.houf.dungeoncrawler.ui.Sprite;
+import io.houf.dungeoncrawler.Game;
+
+import java.awt.*;
 
 public class BloodEntity extends Entity {
+    private final int red;
+
     public BloodEntity(float x, float y, float velocityX, float velocityY) {
-        super(new Sprite("blood", 10, 100), x, y, 10, 10, (float) Math.random() * 0.8f);
+        super(null, x, y, 2 + (int) (Math.random() * 6.0d), (float) Math.random() * 0.8f);
 
         this.setVelocityX(velocityX);
         this.setVelocityY(velocityY);
+
+        this.red = 100 + (int) (Math.random() * 155.0d);
+    }
+
+    @Override
+    public void render(Game game, Graphics2D g) {
+        super.render(game, g);
+
+        g.setColor(new Color(this.red, 0, 0));
+        g.fillRect(100 + (int) this.getX(), 100 + (int) this.getY(), this.width, this.height);
     }
 }

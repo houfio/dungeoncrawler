@@ -24,6 +24,6 @@ public class QuitCommand implements Command {
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
         game.openUI(new MainUI());
 
-        return new LogUI.RawLogLine("Quitting...", Color.WHITE);
+        return new LogUI.RawLogLine("Goodbye.", Color.WHITE);
     }
 }

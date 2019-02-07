@@ -11,6 +11,10 @@ public class ItemEntity extends Entity {
 
     public double angle;
 
+    public ItemEntity(Item item, float x, float y) {
+        this(item, x, y, 0.0f, 0.0f);
+    }
+
     public ItemEntity(Item item, float x, float y, float velocityX, float velocityY) {
         super(null, x, y, 16, 16);
 

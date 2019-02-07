@@ -8,7 +8,7 @@ import io.houf.dungeoncrawler.ui.Sprite;
 import java.awt.*;
 
 public class GnomeEntity extends Entity {
-    public GnomeEntity(int x, int y) {
+    public GnomeEntity(float x, float y) {
         super(new Sprite("gnome", 22, 3), x, y, 22, 32);
     }
 

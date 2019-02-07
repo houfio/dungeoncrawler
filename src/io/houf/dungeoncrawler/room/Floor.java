@@ -1,5 +1,8 @@
 package io.houf.dungeoncrawler.room;
 
+import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.entity.PlayerEntity;
+
 public class Floor {
     private final int width;
     private final int height;
@@ -11,7 +14,9 @@ public class Floor {
         this.rooms = new Room[this.width][this.height];
     }
 
-    public void addRoom(Room room) {
+    public void addRoom(Game game, PlayerEntity player, Room room) {
+        room.addEntity(game, player);
+
         this.rooms[room.x][room.y] = room;
     }
 

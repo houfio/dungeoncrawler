@@ -29,16 +29,16 @@ public class GetCommand implements Command {
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
         var room = game.getCurrent().currentRoom();
-        var player = room.player;
+        var player = game.getCurrent().player;
 
-        if (player.items.size() > 4) {
-            return new LogUI.RawLogLine("Your backpack is completely full", Color.ORANGE);
+        if (player.items.size() >= 4) {
+            return new LogUI.RawLogLine("Your backpack is completely full.", Color.ORANGE);
         }
 
         var name = arguments.get(GetCommand.ITEM);
 
         if (Item.getItem(name, player.items) != null) {
-            return new LogUI.RawLogLine("You already have that item in your backpack", Color.ORANGE);
+            return new LogUI.RawLogLine("You already have that item in your backpack.", Color.ORANGE);
         }
 
         var entity = room.entities.stream()
@@ -47,12 +47,12 @@ public class GetCommand implements Command {
             .orElse(null);
 
         if (entity == null) {
-            return new LogUI.RawLogLine("You couldn't find that item on the floor", Color.ORANGE);
+            return new LogUI.RawLogLine("You couldn't find that item on the floor.", Color.ORANGE);
         }
 
         entity.setDead();
         player.items.add(((ItemEntity) entity).item);
 
-        return new LogUI.RawLogLine("You picked up the " + name + " from the floor", Color.GREEN);
+        return new LogUI.RawLogLine("You picked up the " + name + " from the floor.", Color.GREEN);
     }
 }

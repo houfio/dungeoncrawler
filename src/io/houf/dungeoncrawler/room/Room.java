@@ -4,29 +4,37 @@ import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.entity.Entity;
 import io.houf.dungeoncrawler.entity.GnomeEntity;
 import io.houf.dungeoncrawler.entity.ItemEntity;
-import io.houf.dungeoncrawler.entity.PlayerEntity;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Room {
-    public final PlayerEntity player;
     public final List<Entity> entities;
 
     public final int x;
     public final int y;
 
+    private final Encounter[] encounters;
+
     private boolean entered = false;
 
     public Room(int x, int y) {
+        this(x, y,
+            new Encounter(new GnomeEntity(40.0f, 40.0f), 0.5d),
+            new Encounter(new GnomeEntity(190.0f, 40.0f), 0.5d),
+            new Encounter(new GnomeEntity(190.0f, 190.0f), 0.5d),
+            new Encounter(new GnomeEntity(40.0f, 190.0f), 0.5d)
+        );
+    }
+
+    public Room(int x, int y, Encounter... encounters) {
         this.x = x;
         this.y = y;
-        this.player = new PlayerEntity();
         this.entities = new ArrayList<>();
-
-        this.entities.add(this.player);
+        this.encounters = encounters;
     }
 
     public void addEntity(Game game, Entity entity) {
@@ -66,26 +74,16 @@ public class Room {
     }
 
     public void render(Game game, Graphics2D g) {
-        new ArrayList<>(this.entities).forEach(entity -> entity.render(game, g));
+        new ArrayList<>(this.entities).stream()
+            .sorted(Comparator.comparingInt(Entity::priority))
+            .forEach(entity -> entity.render(game, g));
     }
 
     public void onEnter(Game game) {
         if (!this.entered) {
-            if (this.chance()) {
-                this.addEntity(game, new GnomeEntity(40, 40));
-            }
-
-            if (this.chance()) {
-                this.addEntity(game, new GnomeEntity(190, 40));
-            }
-
-            if (this.chance()) {
-                this.addEntity(game, new GnomeEntity(190, 190));
-            }
-
-            if (this.chance()) {
-                this.addEntity(game, new GnomeEntity(40, 190));
-            }
+            Arrays.stream(this.encounters)
+                .filter(encounter -> Math.random() > 1.0d - encounter.chance)
+                .forEach(encounter -> this.addEntity(game, encounter.entity));
 
             game.getLogger().executeCommand(game, "look");
         }
@@ -93,11 +91,17 @@ public class Room {
         this.entered = true;
     }
 
-    private boolean chance() {
-        return Math.random() > 0.5d;
-    }
-
     private float getRandomVelocity() {
         return (float) Math.random() * 20.0f - 10.0f;
+    }
+
+    public static class Encounter {
+        public final Entity entity;
+        public final double chance;
+
+        public Encounter(Entity entity, double chance) {
+            this.entity = entity;
+            this.chance = chance;
+        }
     }
 }

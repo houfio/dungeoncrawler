@@ -24,6 +24,10 @@ public abstract class Entity {
         this(sprite, x, y, width, height, 0.9f);
     }
 
+    public Entity(Sprite sprite, float x, float y, int size, float gravity) {
+        this(sprite, x, y, size, size, gravity);
+    }
+
     public Entity(Sprite sprite, float x, float y, int width, int height, float gravity) {
         this.width = width;
         this.height = height;
@@ -73,6 +77,10 @@ public abstract class Entity {
 
     public boolean hostile() {
         return false;
+    }
+
+    public int priority() {
+        return 0;
     }
 
     public float getX() {

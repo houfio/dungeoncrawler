@@ -27,11 +27,11 @@ public class UseCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        var player = game.getCurrent().currentRoom().player;
+        var player = game.getCurrent().player;
         var item = Item.getItem(arguments.get(UseCommand.ITEM), player.items);
 
         if (item == null) {
-            return new LogUI.RawLogLine("You don't have that item", Color.ORANGE);
+            return new LogUI.RawLogLine("You couldn't find that item in your backpack.", Color.ORANGE);
         }
 
         var index = player.items.indexOf(item);

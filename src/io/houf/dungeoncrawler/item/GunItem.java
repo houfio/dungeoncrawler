@@ -13,14 +13,14 @@ public class GunItem extends Item {
 
     public Item onUse(Game game) {
         var room = game.getCurrent().currentRoom();
-        var player = room.player;
+        var player = game.getCurrent().player;
         var enemy = room.entities.stream()
             .filter(Entity::hostile)
             .findFirst()
             .orElse(null);
 
         if (enemy == null) {
-            game.getLogger().printLine("You couldn't decide where to point the barrel, so you decided not to pull the trigger.", Color.ORANGE);
+            game.getLogger().printLine("You couldn't decide where to point the barrel, so you ended up not pulling the trigger.", Color.ORANGE);
 
             return this;
         }
