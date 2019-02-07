@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GateEntity extends Entity {
     public GateEntity(float x, float y) {
-        super(new Sprite("gate", 25, 3), x, y, 25, 25);
+        super(new Sprite("entity/gate", 25, 3), x, y, 25, 25);
     }
 
     public void activate(Game game) {

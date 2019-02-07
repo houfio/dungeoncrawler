@@ -12,8 +12,8 @@ public class RoomUI extends UI {
     private final BufferedImage carpet;
 
     public RoomUI() {
-        this.room = Asset.read("room");
-        this.carpet = Asset.read("carpet");
+        this.room = Asset.read("ui/room");
+        this.carpet = Asset.read("ui/carpet");
     }
 
     @Override

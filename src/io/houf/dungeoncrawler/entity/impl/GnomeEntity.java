@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class GnomeEntity extends Entity {
     public GnomeEntity(float x, float y) {
-        super(new Sprite("gnome", 22, 3), x, y, 22, 32);
+        super(new Sprite("entity/gnome", 22, 3), x, y, 22, 32);
     }
 
     @Override

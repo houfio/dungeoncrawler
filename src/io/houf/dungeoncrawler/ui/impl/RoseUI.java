@@ -11,7 +11,7 @@ public class RoseUI extends UI {
     private final BufferedImage rose;
 
     public RoseUI() {
-        this.rose = Asset.read("rose");
+        this.rose = Asset.read("ui/rose");
     }
 
     @Override

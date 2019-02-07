@@ -8,7 +8,7 @@ public class BulletEntity extends Entity {
     private int age = 0;
 
     public BulletEntity(float x, float y, float velocityX, float velocityY) {
-        super(new Sprite("bullet", 5, 100), x, y, 5, 1.0f);
+        super(new Sprite("entity/bullet", 5, 100), x, y, 5, 1.0f);
 
         this.setVelocityX(velocityX);
         this.setVelocityY(velocityY);
