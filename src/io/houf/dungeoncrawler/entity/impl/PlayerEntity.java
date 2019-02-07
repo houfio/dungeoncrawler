@@ -3,7 +3,6 @@ package io.houf.dungeoncrawler.entity.impl;
 import io.houf.dungeoncrawler.entity.Entity;
 import io.houf.dungeoncrawler.item.Item;
 import io.houf.dungeoncrawler.item.impl.GunItem;
-import io.houf.dungeoncrawler.item.impl.StepladderItem;
 import io.houf.dungeoncrawler.ui.Sprite;
 
 import java.util.ArrayList;
@@ -17,12 +16,11 @@ public class PlayerEntity extends Entity {
 
         this.items = new ArrayList<>() {{
             add(new GunItem());
-            add(new StepladderItem());
         }};
     }
 
     @Override
     public int priority() {
-        return 1;
+        return 2;
     }
 }

@@ -36,4 +36,9 @@ public class BulletEntity extends Entity {
         entity.setDead();
         this.setDead();
     }
+
+    @Override
+    public int priority() {
+        return 1;
+    }
 }

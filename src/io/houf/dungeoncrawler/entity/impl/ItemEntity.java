@@ -38,4 +38,9 @@ public class ItemEntity extends Entity {
 
         g.drawImage(Asset.rotate(this.item.image, this.angle), 100 + (int) this.getX(), 100 + (int) this.getY(), null, null);
     }
+
+    @Override
+    public int priority() {
+        return 1;
+    }
 }

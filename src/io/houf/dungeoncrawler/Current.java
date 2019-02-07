@@ -14,6 +14,7 @@ import io.houf.dungeoncrawler.room.Side;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Current implements InputListener {
@@ -63,10 +64,10 @@ public class Current implements InputListener {
             new Room(1, 2),
             new Room(2, 2, new Room.Encounter[0]),
             new Room(4, 2),
-            new Room(5, 2, new Room.Encounter(new GateEntity(190.0f, 115.0f), 1.0d)),
+            new Room(5, 2, new Room.Encounter(new GateEntity(190.0f, 113.0f), 1.0d)),
             new Room(2, 3),
             new Room(3, 3, new Room.Encounter(new ItemEntity(new KeyItem(), 190.0f, 40.0f), 1.0d)),
-            new Room(0, 4, new Room.Encounter(new GateEntity(115.0f, 40.0f), 1.0d)),
+            new Room(0, 4, new Room.Encounter(new GateEntity(113.0f, 40.0f), 1.0d)),
             new Room(2, 4),
             new Room(3, 4),
             new Room(4, 4),
@@ -137,6 +138,21 @@ public class Current implements InputListener {
         }
 
         return true;
+    }
+
+    public void moveToRandom() {
+        var random = new Random();
+        var xNew = this.x;
+        var yNew = this.y;
+        Room room = null;
+
+        while (xNew == this.x || yNew == this.y || room == null) {
+            xNew = random.nextInt(this.floor.width);
+            yNew = random.nextInt(this.floor.height);
+            room = this.floor.getRoom(xNew, yNew);
+        }
+
+        this.setLocation(xNew, yNew);
     }
 
     private void setLocation(int x, int y) {

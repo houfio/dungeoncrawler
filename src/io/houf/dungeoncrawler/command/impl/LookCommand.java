@@ -5,6 +5,7 @@ import io.houf.dungeoncrawler.command.Argument;
 import io.houf.dungeoncrawler.command.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.entity.Entity;
+import io.houf.dungeoncrawler.entity.impl.GateEntity;
 import io.houf.dungeoncrawler.entity.impl.ItemEntity;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
@@ -34,14 +35,17 @@ public class LookCommand implements Command {
             .map(e -> ((ItemEntity) e).item.name)
             .distinct()
             .collect(Collectors.toList());
-        var hostile =  current.currentRoom().entities.stream()
+        var hostile = current.currentRoom().entities.stream()
             .filter(Entity::hostile)
             .count();
+        var gate = current.currentRoom().entities.stream()
+            .anyMatch(e -> e instanceof GateEntity);
 
         var doorMessage = "You see the following doors in the room: " + String.join(", ", doors) + ". ";
         var itemMessage = items.size() > 0 ? "You found the following items on the floor: " + String.join(", ", items) + ". " : "";
         var hostileMessage = hostile > 0 ? "There are " + hostile + " monsters in the room. " : "";
+        var gateMessage = gate ? "Also, there seems to be a some kind of gate in the room. " : "";
 
-        return new LogUI.RawLogLine(doorMessage + itemMessage + hostileMessage, Color.GREEN);
+        return new LogUI.RawLogLine(doorMessage + itemMessage + hostileMessage + gateMessage, Color.GREEN);
     }
 }

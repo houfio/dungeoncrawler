@@ -24,4 +24,9 @@ public class BloodEntity extends Entity {
         g.setColor(new Color(this.red, 0, 0));
         g.fillRect(100 + (int) this.getX(), 100 + (int) this.getY(), this.width, this.height);
     }
+
+    @Override
+    public int priority() {
+        return -1;
+    }
 }

@@ -4,8 +4,9 @@ import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.entity.impl.PlayerEntity;
 
 public class Floor {
-    private final int width;
-    private final int height;
+    public final int width;
+    public final int height;
+
     private final Room[][] rooms;
 
     public Floor(int width, int height) {

@@ -12,6 +12,7 @@ public class GunItem extends Item {
         super("gun");
     }
 
+    @Override
     public Item onUse(Game game) {
         var room = game.getCurrent().currentRoom();
         var player = game.getCurrent().player;
