@@ -22,7 +22,11 @@ public class QuitCommand implements Command {
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        game.openUI(new MainUI());
+        if (game.hasUI) {
+            game.openUI(new MainUI());
+        } else {
+            game.quit();
+        }
 
         return new LogUI.RawLogLine("Goodbye.", Color.WHITE);
     }

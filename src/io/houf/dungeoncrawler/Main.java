@@ -1,6 +1,7 @@
 package io.houf.dungeoncrawler;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 public class Main extends JFrame {
     public Main(Game game) {
@@ -18,10 +19,14 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        var game = new Game();
+        var hasUI = Arrays.asList(args).contains("ui");
+        var game = new Game(hasUI);
         var main = new Main(game);
 
         game.launch();
-        main.setVisible(true);
+
+        if (hasUI) {
+            main.setVisible(true);
+        }
     }
 }

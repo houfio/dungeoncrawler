@@ -18,6 +18,11 @@ public class GameUI extends UI {
     }
 
     @Override
+    public void cleanup(Game game) {
+        game.getCurrent().cleanup();
+    }
+
+    @Override
     public List<UI> getChildren() {
         return Arrays.asList(
             this.command,

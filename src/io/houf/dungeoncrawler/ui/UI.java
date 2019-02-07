@@ -10,6 +10,9 @@ public abstract class UI {
     public void initialize(Game game) {
     }
 
+    public void cleanup(Game game) {
+    }
+
     public List<UI> getChildren() {
         return new ArrayList<>();
     }

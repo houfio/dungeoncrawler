@@ -1,6 +1,7 @@
-package io.houf.dungeoncrawler.entity;
+package io.houf.dungeoncrawler.entity.impl;
 
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.entity.Entity;
 
 import java.awt.*;
 

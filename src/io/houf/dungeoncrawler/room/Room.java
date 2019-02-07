@@ -2,8 +2,8 @@ package io.houf.dungeoncrawler.room;
 
 import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.entity.Entity;
-import io.houf.dungeoncrawler.entity.GnomeEntity;
-import io.houf.dungeoncrawler.entity.ItemEntity;
+import io.houf.dungeoncrawler.entity.impl.GnomeEntity;
+import io.houf.dungeoncrawler.entity.impl.ItemEntity;
 
 import java.awt.*;
 import java.util.ArrayList;

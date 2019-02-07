@@ -5,7 +5,7 @@ import io.houf.dungeoncrawler.command.Argument;
 import io.houf.dungeoncrawler.command.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.entity.Entity;
-import io.houf.dungeoncrawler.entity.ItemEntity;
+import io.houf.dungeoncrawler.entity.impl.ItemEntity;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
 import java.awt.*;

@@ -1,7 +1,7 @@
 package io.houf.dungeoncrawler.room;
 
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.entity.PlayerEntity;
+import io.houf.dungeoncrawler.entity.impl.PlayerEntity;
 
 public class Floor {
     private final int width;

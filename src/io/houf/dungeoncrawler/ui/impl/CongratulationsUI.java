@@ -8,18 +8,25 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainUI extends UI {
-    private final ButtonUI startButton;
+public class CongratulationsUI extends UI {
+    private final ButtonUI againButton;
+    private final ButtonUI menuButton;
     private final ButtonUI quitButton;
 
-    public MainUI() {
-        this.startButton = new ButtonUI("Start", 100, 180) {
+    public CongratulationsUI() {
+        this.againButton = new ButtonUI("Play again", 100, 180) {
             @Override
             public void click(Game game) {
                 game.openUI(new GameUI());
             }
         };
-        this.quitButton = new ButtonUI("Quit", 100, 200) {
+        this.menuButton = new ButtonUI("Menu", 100, 200) {
+            @Override
+            public void click(Game game) {
+                game.openUI(new MainUI());
+            }
+        };
+        this.quitButton = new ButtonUI("Quit", 100, 220) {
             @Override
             public void click(Game game) {
                 game.quit();
@@ -28,9 +35,10 @@ public class MainUI extends UI {
     }
 
     @Override
-    public List<UI> getChildren() {
+    public java.util.List<UI> getChildren() {
         return Arrays.asList(
-            this.startButton,
+            this.againButton,
+            this.menuButton,
             this.quitButton
         );
     }
@@ -38,7 +46,8 @@ public class MainUI extends UI {
     @Override
     public List<Selectable> getSelectables() {
         return Arrays.asList(
-            this.startButton,
+            this.againButton,
+            this.menuButton,
             this.quitButton
         );
     }
@@ -47,8 +56,8 @@ public class MainUI extends UI {
     public void render(Game game, Graphics2D g) {
         g.setColor(Color.WHITE);
         g.setFont(Game.BIG_FONT);
-        g.drawString("Dungeon Crawler", 100, 100);
+        g.drawString("Congratulations!", 100, 100);
         g.setFont(Game.NORMAL_FONT);
-        g.drawString("The most disappointing dungeon crawler game.", 100, 120);
+        g.drawString("You escaped the dungeon through a hole in the ceiling.", 100, 120);
     }
 }

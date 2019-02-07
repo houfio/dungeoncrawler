@@ -1,8 +1,9 @@
-package io.houf.dungeoncrawler.entity;
+package io.houf.dungeoncrawler.entity.impl;
 
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.item.BananaItem;
-import io.houf.dungeoncrawler.item.StickItem;
+import io.houf.dungeoncrawler.entity.Entity;
+import io.houf.dungeoncrawler.item.impl.BananaItem;
+import io.houf.dungeoncrawler.item.impl.StickItem;
 import io.houf.dungeoncrawler.ui.Sprite;
 
 import java.awt.*;

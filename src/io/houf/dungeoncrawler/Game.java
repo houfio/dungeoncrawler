@@ -5,6 +5,7 @@ import io.houf.dungeoncrawler.loop.Loopable;
 import io.houf.dungeoncrawler.ui.Animation;
 import io.houf.dungeoncrawler.ui.Selectable;
 import io.houf.dungeoncrawler.ui.UI;
+import io.houf.dungeoncrawler.ui.impl.GameUI;
 import io.houf.dungeoncrawler.ui.impl.MainUI;
 
 import javax.swing.*;
@@ -20,6 +21,8 @@ public class Game extends JPanel implements Loopable, KeyListener {
     public static final Font NORMAL_FONT = new Font("monospaced", Font.BOLD, 16);
     public static final Font BIG_FONT = new Font("monospaced", Font.BOLD, 24);
 
+    public final boolean hasUI;
+
     private final Loop loop;
     private final List<UI> interfaces;
     private final List<Selectable> selectables;
@@ -30,7 +33,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
     private Current current;
     private int selected = 0;
 
-    public Game() {
+    public Game(boolean hasUI) {
         this.setFocusable(true);
         this.addKeyListener(this);
         this.setForeground(Color.WHITE);
@@ -38,6 +41,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
         this.setFont(Game.NORMAL_FONT);
         this.setFocusTraversalKeysEnabled(false);
 
+        this.hasUI = hasUI;
         this.loop = new Loop(this, 25.0d);
         this.interfaces = new ArrayList<>();
         this.selectables = new ArrayList<>();
@@ -54,6 +58,8 @@ public class Game extends JPanel implements Loopable, KeyListener {
     }
 
     public void openUI(UI ui) {
+        this.interfaces.forEach(i -> i.cleanup(this));
+
         this.interfaces.clear();
         this.addUI(ui);
 
@@ -82,7 +88,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
     @Override
     public void start() {
-        this.openUI(new MainUI());
+        this.openUI(this.hasUI ? new MainUI() : new GameUI());
     }
 
     @Override
