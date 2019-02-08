@@ -94,14 +94,4 @@ public class Room {
     private float getRandomVelocity() {
         return (float) Math.random() * 20.0f - 10.0f;
     }
-
-    public static class Encounter {
-        public final Entity entity;
-        public final double chance;
-
-        public Encounter(Entity entity, double chance) {
-            this.entity = entity;
-            this.chance = chance;
-        }
-    }
 }

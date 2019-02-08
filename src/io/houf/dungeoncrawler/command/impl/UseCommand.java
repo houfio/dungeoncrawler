@@ -5,7 +5,7 @@ import io.houf.dungeoncrawler.argument.Argument;
 import io.houf.dungeoncrawler.argument.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.item.Item;
-import io.houf.dungeoncrawler.ui.impl.LogUI;
+import io.houf.dungeoncrawler.ui.LogLine;
 import io.houf.dungeoncrawler.validator.impl.BackpackValidator;
 
 public class UseCommand implements Command {
@@ -24,7 +24,7 @@ public class UseCommand implements Command {
     }
 
     @Override
-    public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
+    public LogLine execute(Game game, ArgumentMap arguments) {
         var player = game.getCurrent().player;
         var item = arguments.get(this.item);
         var index = player.items.indexOf(item);

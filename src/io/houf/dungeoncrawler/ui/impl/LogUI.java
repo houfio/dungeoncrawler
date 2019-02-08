@@ -9,8 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class LogUI extends UI {
-
-    private final List<LogLine> lines;
+    private final List<Line> lines;
 
     public LogUI() {
         this.lines = new ArrayList<>();
@@ -73,26 +72,16 @@ public class LogUI extends UI {
             lines.set(lines.size() - 1, added);
         }
 
-        this.lines.add(new LogLine(lines, color));
+        this.lines.add(new Line(lines, color));
 
         System.out.println(line);
     }
 
-    public static class RawLogLine {
-        public final String line;
-        public final Color color;
+    private class Line {
+        private final List<String> text;
+        private final Color color;
 
-        public RawLogLine(String line, Color color) {
-            this.line = line;
-            this.color = color;
-        }
-    }
-
-    class LogLine {
-        public final List<String> text;
-        public final Color color;
-
-        LogLine(List<String> text, Color color) {
+        private Line(List<String> text, Color color) {
             this.text = text;
             this.color = color;
         }

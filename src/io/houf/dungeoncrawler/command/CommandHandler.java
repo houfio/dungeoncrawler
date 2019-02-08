@@ -3,7 +3,7 @@ package io.houf.dungeoncrawler.command;
 import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.argument.ArgumentMap;
 import io.houf.dungeoncrawler.command.impl.*;
-import io.houf.dungeoncrawler.ui.impl.LogUI;
+import io.houf.dungeoncrawler.ui.LogLine;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class CommandHandler {
         new UseCommand()
     };
 
-    public LogUI.RawLogLine handle(Game game, String input) {
+    public LogLine handle(Game game, String input) {
         var parts = input.split(" ");
         var command = Arrays.stream(CommandHandler.COMMANDS)
             .filter(c -> c.getName().equals(parts[0]))
@@ -29,7 +29,7 @@ public class CommandHandler {
             .orElse(null);
 
         if (command == null) {
-            return new LogUI.RawLogLine("Invalid command.", Color.WHITE);
+            return new LogLine("Invalid command.", Color.WHITE);
         }
 
         try {
@@ -38,9 +38,9 @@ public class CommandHandler {
             return command.execute(game, arguments);
         } catch (RuntimeException e) {
             if (e.getMessage() == null) {
-                return new LogUI.RawLogLine("Invalid arguments.", Color.WHITE);
+                return new LogLine("Invalid arguments.", Color.WHITE);
             } else {
-                return new LogUI.RawLogLine(e.getMessage(), Color.RED);
+                return new LogLine(e.getMessage(), Color.RED);
             }
         }
     }

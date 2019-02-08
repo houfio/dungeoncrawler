@@ -5,7 +5,7 @@ import io.houf.dungeoncrawler.argument.Argument;
 import io.houf.dungeoncrawler.argument.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.entity.impl.ItemEntity;
-import io.houf.dungeoncrawler.ui.impl.LogUI;
+import io.houf.dungeoncrawler.ui.LogLine;
 import io.houf.dungeoncrawler.validator.impl.FloorValidator;
 
 import java.awt.*;
@@ -26,22 +26,22 @@ public class GetCommand implements Command {
     }
 
     @Override
-    public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
+    public LogLine execute(Game game, ArgumentMap arguments) {
         var player = game.getCurrent().player;
 
         if (player.items.size() >= 4) {
-            return new LogUI.RawLogLine("Your backpack is completely full.", Color.RED);
+            return new LogLine("Your backpack is completely full.", Color.RED);
         }
 
         var entity = arguments.get(this.item);
 
         if (player.hasItem(entity.item)) {
-            return new LogUI.RawLogLine("You already have that item in your backpack.", Color.RED);
+            return new LogLine("You already have that item in your backpack.", Color.RED);
         }
 
         entity.setDead();
         player.items.add(entity.item);
 
-        return new LogUI.RawLogLine("You picked up the " + entity.item.name + " from the floor.", Color.PINK);
+        return new LogLine("You picked up the " + entity.item.name + " from the floor.", Color.PINK);
     }
 }

@@ -6,7 +6,7 @@ import io.houf.dungeoncrawler.argument.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.entity.impl.ItemEntity;
 import io.houf.dungeoncrawler.item.Item;
-import io.houf.dungeoncrawler.ui.impl.LogUI;
+import io.houf.dungeoncrawler.ui.LogLine;
 import io.houf.dungeoncrawler.validator.impl.BackpackValidator;
 
 import java.awt.*;
@@ -27,18 +27,18 @@ public class DropCommand implements Command {
     }
 
     @Override
-    public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
+    public LogLine execute(Game game, ArgumentMap arguments) {
         var room = game.getCurrent().currentRoom();
         var player = game.getCurrent().player;
         var item = arguments.get(this.item);
 
         if (!item.drop()) {
-            return new LogUI.RawLogLine("You decided not to drop your " + item.name + ".", Color.ORANGE);
+            return new LogLine("You decided not to drop your " + item.name + ".", Color.ORANGE);
         }
 
         player.items.remove(item);
         room.addEntity(game, new ItemEntity(item, 114, 109, (float) Math.random() * 100.0f - 50.0f, (float) Math.random() * 100.0f - 50.0f));
 
-        return new LogUI.RawLogLine("You dropped the " + item.name + " on the floor.", Color.PINK);
+        return new LogLine("You dropped the " + item.name + " on the floor.", Color.PINK);
     }
 }

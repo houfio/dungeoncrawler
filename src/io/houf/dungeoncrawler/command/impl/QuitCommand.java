@@ -4,7 +4,7 @@ import io.houf.dungeoncrawler.Game;
 import io.houf.dungeoncrawler.argument.Argument;
 import io.houf.dungeoncrawler.argument.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
-import io.houf.dungeoncrawler.ui.impl.LogUI;
+import io.houf.dungeoncrawler.ui.LogLine;
 import io.houf.dungeoncrawler.ui.impl.MainUI;
 
 import java.awt.*;
@@ -21,13 +21,13 @@ public class QuitCommand implements Command {
     }
 
     @Override
-    public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
+    public LogLine execute(Game game, ArgumentMap arguments) {
         if (game.hasUI) {
             game.openUI(new MainUI());
         } else {
             game.quit();
         }
 
-        return new LogUI.RawLogLine("Goodbye.", Color.WHITE);
+        return new LogLine("Goodbye.", Color.WHITE);
     }
 }

@@ -1,6 +1,7 @@
 package io.houf.dungeoncrawler.entity.impl;
 
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.entity.Drop;
 import io.houf.dungeoncrawler.entity.Entity;
 import io.houf.dungeoncrawler.item.impl.BananaItem;
 import io.houf.dungeoncrawler.item.impl.StickItem;

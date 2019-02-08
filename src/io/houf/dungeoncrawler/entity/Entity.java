@@ -1,7 +1,6 @@
 package io.houf.dungeoncrawler.entity;
 
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.item.Item;
 import io.houf.dungeoncrawler.ui.Sprite;
 
 import java.awt.*;
@@ -121,15 +120,5 @@ public abstract class Entity {
 
     public void setDead() {
         this.dead = true;
-    }
-
-    public static class Drop {
-        public final Item item;
-        public final double chance;
-
-        public Drop(Item item, double chance) {
-            this.item = item;
-            this.chance = chance;
-        }
     }
 }

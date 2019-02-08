@@ -8,7 +8,7 @@ import io.houf.dungeoncrawler.entity.Entity;
 import io.houf.dungeoncrawler.entity.impl.GateEntity;
 import io.houf.dungeoncrawler.entity.impl.HoleEntity;
 import io.houf.dungeoncrawler.entity.impl.ItemEntity;
-import io.houf.dungeoncrawler.ui.impl.LogUI;
+import io.houf.dungeoncrawler.ui.LogLine;
 
 import java.awt.*;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class LookCommand implements Command {
     }
 
     @Override
-    public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
+    public LogLine execute(Game game, ArgumentMap arguments) {
         var current = game.getCurrent();
         var doors = current.getDoors()
             .stream()
@@ -50,6 +50,6 @@ public class LookCommand implements Command {
         var gateMessage = gate ? "Also, there seems to be a some kind of gate in the room. " : "";
         var holeMessage = hole ? "There's a huge hole in the ceiling. If only you could get to it... " : "";
 
-        return new LogUI.RawLogLine(doorMessage + itemMessage + hostileMessage + gateMessage + holeMessage, Color.GREEN);
+        return new LogLine(doorMessage + itemMessage + hostileMessage + gateMessage + holeMessage, Color.GREEN);
     }
 }
