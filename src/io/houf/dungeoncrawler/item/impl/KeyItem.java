@@ -25,7 +25,7 @@ public class KeyItem extends Item {
             return this;
         }
 
-        game.getLogger().printLine("You threw the key inside the gate. You got teleported to another room.", Color.CYAN);
+        game.getLogger().printLine("You threw the key inside the gate. You got teleported to another room.", Color.YELLOW);
 
         ((GateEntity) entity).activate(game);
 

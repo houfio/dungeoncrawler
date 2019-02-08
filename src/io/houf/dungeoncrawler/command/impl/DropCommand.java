@@ -34,7 +34,7 @@ public class DropCommand implements Command {
         var item = Item.getItem(name, player.items);
 
         if (item == null) {
-            return new LogUI.RawLogLine("You couldn't find that item in your backpack.", Color.ORANGE);
+            return new LogUI.RawLogLine("You couldn't find that item in your backpack.", Color.RED);
         } else if (!item.drop()) {
             return new LogUI.RawLogLine("You decided not to drop your " + item.name + ".", Color.ORANGE);
         }

@@ -36,13 +36,13 @@ public class CommandHandler {
             .orElse(null);
 
         if (command == null) {
-            return new LogUI.RawLogLine("Command not found", Color.RED);
+            return new LogUI.RawLogLine("Invalid command.", Color.WHITE);
         }
 
         var arguments = this.parseArguments(command, Arrays.copyOfRange(parts, 1, parts.length));
 
         if (arguments == null) {
-            return new LogUI.RawLogLine("Invalid arguments", Color.RED);
+            return new LogUI.RawLogLine("Invalid arguments.", Color.WHITE);
         }
 
         return command.execute(game, arguments);
@@ -96,6 +96,10 @@ public class CommandHandler {
     private ArgumentMap parseArguments(Command command, String[] array) {
         var map = new HashMap<String, Object>();
         var arguments = command.getArguments();
+
+        if (array.length > arguments.length) {
+            return null;
+        }
 
         for (var i = 0; i < arguments.length; i++) {
             var argument = arguments[i];

@@ -31,7 +31,7 @@ public class UseCommand implements Command {
         var item = Item.getItem(arguments.get(UseCommand.ITEM), player.items);
 
         if (item == null) {
-            return new LogUI.RawLogLine("You couldn't find that item in your backpack.", Color.ORANGE);
+            return new LogUI.RawLogLine("You couldn't find that item in your backpack.", Color.RED);
         }
 
         var index = player.items.indexOf(item);

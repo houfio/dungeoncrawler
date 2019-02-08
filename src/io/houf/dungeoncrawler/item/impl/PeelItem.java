@@ -12,7 +12,7 @@ public class PeelItem extends Item {
 
     @Override
     public Item onUse(Game game) {
-        game.getLogger().printLine("You decided not to eat the banana peel.", Color.MAGENTA);
+        game.getLogger().printLine("You decided not to eat the banana peel.", Color.ORANGE);
 
         return this;
     }

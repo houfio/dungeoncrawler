@@ -38,7 +38,7 @@ public class GunItem extends Item {
 
         room.addEntity(game, new BulletEntity(xPlayer, yPlayer, (float) Math.cos(radians) * 20.0f, (float) Math.sin(radians) * 20.0f));
 
-        game.getLogger().printLine("You pulled the trigger. The gun made a loud bang.", Color.ORANGE);
+        game.getLogger().printLine("You pulled the trigger. The gun made a loud bang.", Color.YELLOW);
 
         return this;
     }

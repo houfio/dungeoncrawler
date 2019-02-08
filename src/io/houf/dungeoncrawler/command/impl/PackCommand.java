@@ -28,9 +28,9 @@ public class PackCommand implements Command {
             .collect(Collectors.toList());
 
         if (items.size() == 0) {
-            return new LogUI.RawLogLine("Your backpack is completely empty.", Color.ORANGE);
+            return new LogUI.RawLogLine("Your backpack is completely empty.", Color.RED);
         }
 
-        return new LogUI.RawLogLine("You have the follwing items in your backpack: " + String.join(", ", items) + ".", Color.GREEN);
+        return new LogUI.RawLogLine("You have the following items in your backpack: " + String.join(", ", items) + ".", Color.PINK);
     }
 }

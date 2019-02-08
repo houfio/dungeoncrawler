@@ -32,11 +32,11 @@ public class GoCommand implements Command {
         var hasHostile = game.getCurrent().currentRoom().entities.stream().anyMatch(Entity::hostile);
 
         if (hasHostile) {
-            return new LogUI.RawLogLine("There are monsters in the room and they block your way.", Color.ORANGE);
+            return new LogUI.RawLogLine("There are monsters in the room that block your way.", Color.RED);
         } else if (!game.getCurrent().move(Side.valueOf(side.toUpperCase()))) {
-            return new LogUI.RawLogLine("You could't walk to the " + side + ".", Color.ORANGE);
+            return new LogUI.RawLogLine("You could't walk to the " + side + ".", Color.RED);
         }
 
-        return new LogUI.RawLogLine("You walked to the " + side + ".", Color.YELLOW);
+        return new LogUI.RawLogLine("You walked to the " + side + ".", Color.PINK);
     }
 }

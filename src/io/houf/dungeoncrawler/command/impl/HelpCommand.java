@@ -51,7 +51,7 @@ public class HelpCommand implements Command {
             .orElse(null);
 
         if (command == null) {
-            return new LogUI.RawLogLine("Specified command doesn't exist.", Color.RED);
+            return new LogUI.RawLogLine("Invalid command.", Color.WHITE);
         }
 
         var help = Arrays.stream(command.getArguments())

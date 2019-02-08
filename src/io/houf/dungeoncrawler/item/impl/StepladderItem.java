@@ -25,7 +25,7 @@ public class StepladderItem extends Item {
             return this;
         }
 
-        game.getLogger().printLine("You escaped the dungeon through a hole in the ceiling. Congratulations!", Color.WHITE);
+        game.getLogger().printLine("You escaped the dungeon through a hole in the ceiling. Congratulations!", Color.YELLOW);
 
         ((HoleEntity) entity).escape(game);
 
