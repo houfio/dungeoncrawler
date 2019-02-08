@@ -49,6 +49,6 @@ public class MainUI extends UI {
         g.setFont(Game.BIG_FONT);
         g.drawString("Dungeon Crawler", 100, 100);
         g.setFont(Game.NORMAL_FONT);
-        g.drawString("The most disappointing dungeon crawler game.", 100, 120);
+        g.drawString("The most disappointing room explorer game.", 100, 120);
     }
 }

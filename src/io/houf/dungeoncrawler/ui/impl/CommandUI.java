@@ -85,9 +85,9 @@ public class CommandUI extends UI implements Selectable, Logger {
                 this.updateSuggested(game);
             }
         } else if (code == KeyEvent.VK_TAB) {
-            if (!this.suggested.isEmpty() && this.suggested.length() > this.command.length()) {
+            if (!this.suggested.isEmpty() && this.suggested.length() >= this.command.length()) {
                 this.command.setLength(0);
-                this.command.append(this.suggested);
+                this.command.append(this.suggested).append(" ");
             }
         } else if (code == KeyEvent.VK_UP) {
             if (this.back < this.history.size()) {
