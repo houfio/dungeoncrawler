@@ -72,8 +72,8 @@ public class CommandUI extends UI implements Selectable, Logger {
 
                 this.executeCommand(game, str);
 
-                if (this.history.size() == 0 || !this.history.get(this.history.size() - 1).equals(str)) {
-                    this.history.add(str);
+                if (this.history.size() == 0 || !this.history.get(0).equals(str)) {
+                    this.history.add(0, str);
                 }
 
                 this.command.setLength(0);
@@ -94,7 +94,7 @@ public class CommandUI extends UI implements Selectable, Logger {
                 this.back++;
 
                 this.command.setLength(0);
-                this.command.append(this.history.get(this.history.size() - this.back));
+                this.command.append(this.history.get(this.back - 1));
 
                 this.updateSuggested();
             }
