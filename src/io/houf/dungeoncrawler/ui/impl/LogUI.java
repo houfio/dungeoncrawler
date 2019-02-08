@@ -9,8 +9,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class LogUI extends UI {
-    public static final int MAX_WIDTH = 29;
-    public static final int MAX_LINES = 25;
 
     private final List<LogLine> lines;
 
@@ -34,7 +32,9 @@ public class LogUI extends UI {
         Collections.reverse(lines);
 
         for (var i = 0; i < lines.size(); i++) {
-            if (offset > LogUI.MAX_LINES) {
+            var maxLines = 25;
+
+            if (offset > maxLines) {
                 break;
             }
 
@@ -45,7 +45,7 @@ public class LogUI extends UI {
             for (var text : line.text) {
                 g.drawString(text, 465, 58 + offset * 15);
 
-                if (++offset > LogUI.MAX_LINES) {
+                if (++offset > maxLines) {
                     break;
                 }
             }
@@ -62,7 +62,9 @@ public class LogUI extends UI {
             var last = lines.get(lines.size() - 1);
             var added = last + " " + word;
 
-            if (added.length() > LogUI.MAX_WIDTH || last.endsWith("\n")) {
+            var maxWidth = 29;
+
+            if (added.length() > maxWidth || last.endsWith("\n")) {
                 lines.add(word);
 
                 continue;

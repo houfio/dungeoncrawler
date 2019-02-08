@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class HelpCommand implements Command {
-    private static Argument<String> COMMAND;
+    private Argument<String> command;
 
     @Override
     public String getName() {
@@ -19,18 +19,18 @@ public class HelpCommand implements Command {
 
     @Override
     public Argument<?>[] getArguments() {
-        if (HelpCommand.COMMAND == null) {
-            HelpCommand.COMMAND = new Argument<>("command", "Command to receive detailed information about", false, new OptionValidator(CommandHandler.getCommands()));
+        if (this.command == null) {
+        	this.command = new Argument<>("command", "Command to receive detailed information about", false, new OptionValidator(CommandHandler.getCommandNames()));
         }
 
         return new Argument[]{
-            HelpCommand.COMMAND
+            this.command
         };
     }
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        if (!arguments.has(HelpCommand.COMMAND)) {
+        if (!arguments.has(this.command)) {
             var lines = new HashMap<String, String>();
 
             for (var command : CommandHandler.COMMANDS) {
@@ -44,7 +44,7 @@ public class HelpCommand implements Command {
             return new LogUI.RawLogLine(lines.keySet().stream().map(key -> key + lines.get(key)).collect(Collectors.joining("\n ")), Color.WHITE);
         }
 
-        var name = arguments.get(HelpCommand.COMMAND);
+        var name = arguments.get(this.command);
         var command = Arrays.stream(CommandHandler.COMMANDS)
             .filter(c -> c.getName().equals(name))
             .findFirst()

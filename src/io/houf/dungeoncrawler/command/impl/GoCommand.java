@@ -12,7 +12,7 @@ import io.houf.dungeoncrawler.ui.impl.LogUI;
 import java.awt.*;
 
 public class GoCommand implements Command {
-    private static final Argument<String> SIDE = new Argument<>("side", "Side to move the character to", true, new OptionValidator(Side.getSides()));
+    private final Argument<String> side = new Argument<>("side", "Side to move the character to", true, new OptionValidator(Side.getSides()));
 
     @Override
     public String getName() {
@@ -22,13 +22,13 @@ public class GoCommand implements Command {
     @Override
     public Argument<?>[] getArguments() {
         return new Argument[]{
-            GoCommand.SIDE
+            this.side
         };
     }
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
-        var side = arguments.get(GoCommand.SIDE);
+        var side = arguments.get(this.side);
         var hasHostile = game.getCurrent().currentRoom().entities.stream().anyMatch(Entity::hostile);
 
         if (hasHostile) {

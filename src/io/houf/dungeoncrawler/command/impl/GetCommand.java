@@ -12,7 +12,7 @@ import io.houf.dungeoncrawler.ui.impl.LogUI;
 import java.awt.*;
 
 public class GetCommand implements Command {
-    private static final Argument<String> ITEM = new Argument<>("item", "The item to get from the room", true, Validator.STRING_VALIDATOR);
+    private final Argument<String> item = new Argument<>("item", "The item to get from the room", true, Validator.STRING_VALIDATOR);
 
     @Override
     public String getName() {
@@ -22,7 +22,7 @@ public class GetCommand implements Command {
     @Override
     public Argument<?>[] getArguments() {
         return new Argument[]{
-            GetCommand.ITEM
+            this.item
         };
     }
 
@@ -35,9 +35,9 @@ public class GetCommand implements Command {
             return new LogUI.RawLogLine("Your backpack is completely full.", Color.RED);
         }
 
-        var name = arguments.get(GetCommand.ITEM);
+        var name = arguments.get(this.item);
 
-        if (Item.getItem(name, player.items) != null) {
+        if (player.getItem(name) != null) {
             return new LogUI.RawLogLine("You already have that item in your backpack.", Color.RED);
         }
 

@@ -4,7 +4,6 @@ import io.houf.dungeoncrawler.Asset;
 import io.houf.dungeoncrawler.Game;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 public class Item {
     public final String name;
@@ -21,12 +20,5 @@ public class Item {
 
     public boolean drop() {
         return true;
-    }
-
-    public static Item getItem(String name, List<Item> items) {
-        return items.stream()
-            .filter(i -> i != null && i.name.equals(name))
-            .findFirst()
-            .orElse(null);
     }
 }

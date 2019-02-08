@@ -11,7 +11,7 @@ import io.houf.dungeoncrawler.ui.impl.LogUI;
 import java.awt.*;
 
 public class UseCommand implements Command {
-    private static final Argument<String> ITEM = new Argument<>("item", "The item to use", true, Validator.STRING_VALIDATOR);
+    private final Argument<String> item = new Argument<>("item", "The item to use", true, Validator.STRING_VALIDATOR);
 
     @Override
     public String getName() {
@@ -21,14 +21,14 @@ public class UseCommand implements Command {
     @Override
     public Argument<?>[] getArguments() {
         return new Argument[]{
-            UseCommand.ITEM
+            this.item
         };
     }
 
     @Override
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
         var player = game.getCurrent().player;
-        var item = Item.getItem(arguments.get(UseCommand.ITEM), player.items);
+        var item = player.getItem(arguments.get(this.item));
 
         if (item == null) {
             return new LogUI.RawLogLine("You couldn't find that item in your backpack.", Color.RED);

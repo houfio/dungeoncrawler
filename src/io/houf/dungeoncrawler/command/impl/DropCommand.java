@@ -12,7 +12,7 @@ import io.houf.dungeoncrawler.ui.impl.LogUI;
 import java.awt.*;
 
 public class DropCommand implements Command {
-    private static final Argument<String> ITEM = new Argument<>("item", "The item to drop to the room", true, Validator.STRING_VALIDATOR);
+    private final Argument<String> item = new Argument<>("item", "The item to drop to the room", true, Validator.STRING_VALIDATOR);
 
     @Override
     public String getName() {
@@ -22,7 +22,7 @@ public class DropCommand implements Command {
     @Override
     public Argument<?>[] getArguments() {
         return new Argument[]{
-            DropCommand.ITEM
+            this.item
         };
     }
 
@@ -30,8 +30,8 @@ public class DropCommand implements Command {
     public LogUI.RawLogLine execute(Game game, ArgumentMap arguments) {
         var room = game.getCurrent().currentRoom();
         var player = game.getCurrent().player;
-        var name = arguments.get(DropCommand.ITEM);
-        var item = Item.getItem(name, player.items);
+        var name = arguments.get(this.item);
+        var item = player.getItem(name);
 
         if (item == null) {
             return new LogUI.RawLogLine("You couldn't find that item in your backpack.", Color.RED);

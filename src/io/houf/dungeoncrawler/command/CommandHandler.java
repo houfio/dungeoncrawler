@@ -22,7 +22,7 @@ public class CommandHandler {
         new UseCommand()
     };
 
-    public static List<String> getCommands() {
+    public static List<String> getCommandNames() {
         return Arrays.stream(CommandHandler.COMMANDS)
             .map(Command::getName)
             .collect(Collectors.toList());
