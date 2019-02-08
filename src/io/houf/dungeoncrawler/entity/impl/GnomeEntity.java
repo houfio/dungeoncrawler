@@ -17,6 +17,7 @@ public class GnomeEntity extends Entity {
     @Override
     public void initialize(Game game) {
         game.getLogger().printLine("I'm not a gnelf, I'm not a gnoblin, I'm a gnome!", Color.CYAN);
+        game.getAudio().play("gnome");
     }
 
     @Override

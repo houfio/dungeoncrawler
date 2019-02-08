@@ -100,7 +100,7 @@ public class Current implements InputListener {
             return false;
         }
 
-        if (game.hasUI) {
+        if (this.game.hasUI) {
             this.game.startAnimation(50, a -> a
                 .action(0, () -> {
                     this.player.setX(this.player.getX() + side.x * (114.0f / 25.0f));

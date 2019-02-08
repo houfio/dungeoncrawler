@@ -42,6 +42,8 @@ public class GetCommand implements Command {
         entity.setDead();
         player.items.add(entity.item);
 
+        game.getAudio().play("get");
+
         return new LogLine("You picked up the " + entity.item.name + " from the floor.", Color.PINK);
     }
 }

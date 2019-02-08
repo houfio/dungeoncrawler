@@ -17,6 +17,8 @@ public class GateEntity extends Entity {
         var opacity = new AtomicInteger(255);
 
         if (game.hasUI) {
+            game.getAudio().play("gate");
+
             game.startAnimation(25, a -> a
                 .keyframe(0, g -> {
                     g.setColor(new Color(0, 255, 255, opacity.get()));

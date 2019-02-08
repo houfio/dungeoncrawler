@@ -48,12 +48,22 @@ public abstract class Entity {
         this.velocityX *= this.gravity;
         this.velocityY *= this.gravity;
 
+        var collided = false;
+
         if ((this.x <= 10 && this.velocityX < 0.0f) || (this.x >= 240 - this.width && this.velocityX > 0.0f)) {
             this.velocityX *= -1;
+
+            collided = true;
         }
 
         if ((this.y <= 10 && this.velocityY < 0.0f) || (this.y >= 240 - this.height && this.velocityY > 0.0f)) {
             this.velocityY *= -1;
+
+            collided = true;
+        }
+
+        if (collided && this.sound()) {
+            game.getAudio().play("collide");
         }
 
         if (this.sprite != null) {
@@ -80,6 +90,10 @@ public abstract class Entity {
 
     public int priority() {
         return 0;
+    }
+
+    public boolean sound() {
+        return true;
     }
 
     public float getX() {

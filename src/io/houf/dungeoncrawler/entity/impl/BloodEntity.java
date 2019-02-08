@@ -29,4 +29,9 @@ public class BloodEntity extends Entity {
     public int priority() {
         return -1;
     }
+
+    @Override
+    public boolean sound() {
+        return false;
+    }
 }

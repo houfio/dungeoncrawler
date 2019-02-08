@@ -50,7 +50,7 @@ public class CommandHandler {
             return "";
         }
 
-        var parts = input.split(" ");
+        var parts = input.toLowerCase().split(" ");
         var command = Arrays.stream(CommandHandler.COMMANDS)
             .filter(c -> parts.length > 1 ? c.getName().equals(parts[0]) : c.getName().startsWith(parts[0]))
             .findFirst()

@@ -35,6 +35,8 @@ public class BulletEntity extends Entity {
 
         entity.setDead();
         this.setDead();
+
+        game.getAudio().play("hit");
     }
 
     @Override

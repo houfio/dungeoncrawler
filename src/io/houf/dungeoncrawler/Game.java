@@ -1,5 +1,6 @@
 package io.houf.dungeoncrawler;
 
+import io.houf.dungeoncrawler.audio.AudioHandler;
 import io.houf.dungeoncrawler.loop.Loop;
 import io.houf.dungeoncrawler.loop.Loopable;
 import io.houf.dungeoncrawler.ui.Animation;
@@ -26,6 +27,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
     private final List<UI> interfaces;
     private final List<Selectable> selectables;
     private final List<Animation> animations;
+    private final AudioHandler audio;
 
     private Logger logger;
     private Current current;
@@ -44,6 +46,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
         this.interfaces = new ArrayList<>();
         this.selectables = new ArrayList<>();
         this.animations = new ArrayList<>();
+        this.audio = new AudioHandler(this);
     }
 
     public void launch() {
@@ -75,7 +78,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
     private void updateSelected() {
         for (var i = 0; i < this.selectables.size(); i++) {
-            this.selectables.get(i).setSelected(i == this.selected);
+            this.selectables.get(i).setSelected(this, i == this.selected);
         }
     }
 
@@ -152,5 +155,9 @@ public class Game extends JPanel implements Loopable, KeyListener {
 
     public Current getCurrent() {
         return this.current;
+    }
+
+    public AudioHandler getAudio() {
+        return this.audio;
     }
 }

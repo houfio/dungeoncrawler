@@ -86,6 +86,7 @@ public class Room {
                 .forEach(encounter -> this.addEntity(game, encounter.entity));
         }
 
+        game.getAudio().play("enter");
         game.getLogger().executeCommand(game, "look");
 
         this.entered = true;

@@ -126,7 +126,7 @@ public class CommandUI extends UI implements Selectable, Logger {
     }
 
     @Override
-    public void setSelected(boolean selected) {
+    public void setSelected(Game game, boolean selected) {
         this.selected = selected;
     }
 

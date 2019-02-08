@@ -40,7 +40,11 @@ public abstract class ButtonUI extends UI implements Selectable {
     }
 
     @Override
-    public void setSelected(boolean selected) {
+    public void setSelected(Game game, boolean selected) {
+        if (!this.selected && selected) {
+            game.getAudio().play("menu");
+        }
+
         this.selected = selected;
     }
 }
