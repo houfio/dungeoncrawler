@@ -1,6 +1,7 @@
 package io.houf.dungeoncrawler;
 
 import io.houf.dungeoncrawler.entity.impl.GateEntity;
+import io.houf.dungeoncrawler.entity.impl.HoleEntity;
 import io.houf.dungeoncrawler.entity.impl.ItemEntity;
 import io.houf.dungeoncrawler.entity.impl.PlayerEntity;
 import io.houf.dungeoncrawler.input.Input;
@@ -52,7 +53,7 @@ public class Current implements InputListener {
     }
 
     private Room[] getRooms() {
-        return new Room[] {
+        return new Room[]{
             new Room(1, 0, new Room.Encounter(new ItemEntity(new KeyItem(), 40.0f, 115.0f), 1.0d)),
             new Room(2, 0),
             new Room(4, 0),
@@ -62,7 +63,7 @@ public class Current implements InputListener {
             new Room(4, 1),
             new Room(0, 2),
             new Room(1, 2),
-            new Room(2, 2, new Room.Encounter[0]),
+            new Room(2, 2, new Room.Encounter(new HoleEntity(), 1.0d)),
             new Room(4, 2),
             new Room(5, 2, new Room.Encounter(new GateEntity(190.0f, 113.0f), 1.0d)),
             new Room(2, 3),

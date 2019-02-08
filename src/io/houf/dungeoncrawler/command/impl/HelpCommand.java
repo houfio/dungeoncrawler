@@ -20,10 +20,10 @@ public class HelpCommand implements Command {
     @Override
     public Argument<?>[] getArguments() {
         if (HelpCommand.COMMAND == null) {
-            HelpCommand.COMMAND = new Argument<>("command", "Command to receive detailed information about", false, new OptionValidator(CommandHandler.getCommands()));;
+            HelpCommand.COMMAND = new Argument<>("command", "Command to receive detailed information about", false, new OptionValidator(CommandHandler.getCommands()));
         }
 
-        return new Argument[] {
+        return new Argument[]{
             HelpCommand.COMMAND
         };
     }

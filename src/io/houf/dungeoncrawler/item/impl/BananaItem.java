@@ -10,6 +10,7 @@ public class BananaItem extends Item {
         super("banana");
     }
 
+    @Override
     public Item onUse(Game game) {
         game.getLogger().printLine("You peeled the banana", Color.YELLOW);
 

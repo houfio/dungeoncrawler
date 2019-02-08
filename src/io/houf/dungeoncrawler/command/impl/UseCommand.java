@@ -20,7 +20,7 @@ public class UseCommand implements Command {
 
     @Override
     public Argument<?>[] getArguments() {
-        return new Argument[] {
+        return new Argument[]{
             UseCommand.ITEM
         };
     }

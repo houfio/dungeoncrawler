@@ -8,6 +8,7 @@ import io.houf.dungeoncrawler.ui.UI;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,15 +16,18 @@ public class CommandUI extends UI implements Selectable, Logger {
     private final StringBuilder command;
     private final CommandHandler handler;
     private final LogUI log;
+    private final List<String> history;
 
     private String suggested = "";
     private boolean selected = false;
     private int blink = 0;
+    private int back = 0;
 
     public CommandUI() {
         this.command = new StringBuilder();
         this.handler = new CommandHandler();
         this.log = new LogUI();
+        this.history = new ArrayList<>();
     }
 
     @Override
@@ -63,30 +67,61 @@ public class CommandUI extends UI implements Selectable, Logger {
         }
 
         if (code == KeyEvent.VK_ENTER) {
-            this.executeCommand(game, this.command.toString());
+            if (this.command.toString().trim().length() > 0) {
+                var str = this.command.toString();
 
-            this.command.setLength(0);
+                this.executeCommand(game, str);
 
-            return;
+                if (this.history.size() == 0 || !this.history.get(this.history.size() - 1).equals(str)) {
+                    this.history.add(str);
+                }
+
+                this.command.setLength(0);
+                this.back = 0;
+            }
         } else if (code == KeyEvent.VK_BACK_SPACE) {
             if (this.command.length() > 0) {
                 this.command.setLength(this.command.length() - 1);
-                this.suggested = this.handler.getSuggested(this.command.toString());
+                this.updateSuggested();
             }
-
-            return;
         } else if (code == KeyEvent.VK_TAB) {
             if (!this.suggested.isEmpty() && this.suggested.length() > this.command.length()) {
                 this.command.setLength(0);
                 this.command.append(this.suggested);
             }
+        } else if (code == KeyEvent.VK_UP) {
+            if (this.back < this.history.size()) {
+                this.back++;
 
-            return;
-        } else if (key == ' ' && this.command.toString().endsWith(" ")) {
-            return;
+                this.command.setLength(0);
+                this.command.append(this.history.get(this.history.size() - this.back));
+
+                this.updateSuggested();
+            }
+        } else if (code == KeyEvent.VK_DOWN) {
+            if (this.back > 0) {
+                this.back--;
+                this.command.setLength(0);
+
+                if (this.back > 0) {
+                    this.command.append(this.history.get(this.back - 1));
+                }
+
+                this.updateSuggested();
+            }
+        } else if ((key != ' ' || !this.command.toString().endsWith(" ")) && this.isPrintableChar(key)) {
+            this.command.append(key);
+            this.updateSuggested();
         }
+    }
 
-        this.command.append(key);
+    private boolean isPrintableChar(char c) {
+        var block = Character.UnicodeBlock.of(c);
+
+        return !Character.isISOControl(c) && c != KeyEvent.CHAR_UNDEFINED && block != null && block != Character.UnicodeBlock.SPECIALS;
+    }
+
+    private void updateSuggested() {
         this.suggested = this.handler.getSuggested(this.command.toString());
     }
 

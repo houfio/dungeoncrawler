@@ -14,6 +14,6 @@ public class PeelItem extends Item {
     public Item onUse(Game game) {
         game.getLogger().printLine("You decided not to eat the banana peel.", Color.MAGENTA);
 
-        return null;
+        return this;
     }
 }

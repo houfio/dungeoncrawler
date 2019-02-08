@@ -21,7 +21,7 @@ public class GetCommand implements Command {
 
     @Override
     public Argument<?>[] getArguments() {
-        return new Argument[] {
+        return new Argument[]{
             GetCommand.ITEM
         };
     }

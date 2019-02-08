@@ -21,7 +21,7 @@ public class GoCommand implements Command {
 
     @Override
     public Argument<?>[] getArguments() {
-        return new Argument[] {
+        return new Argument[]{
             GoCommand.SIDE
         };
     }

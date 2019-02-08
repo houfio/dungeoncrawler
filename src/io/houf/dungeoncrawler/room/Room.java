@@ -84,9 +84,9 @@ public class Room {
             Arrays.stream(this.encounters)
                 .filter(encounter -> Math.random() > 1.0d - encounter.chance)
                 .forEach(encounter -> this.addEntity(game, encounter.entity));
-
-            game.getLogger().executeCommand(game, "look");
         }
+
+        game.getLogger().executeCommand(game, "look");
 
         this.entered = true;
     }

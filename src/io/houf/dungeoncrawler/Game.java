@@ -15,7 +15,6 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.regex.Pattern;
 
 public class Game extends JPanel implements Loopable, KeyListener {
     public static final Font NORMAL_FONT = new Font("monospaced", Font.BOLD, 16);
@@ -27,7 +26,6 @@ public class Game extends JPanel implements Loopable, KeyListener {
     private final List<UI> interfaces;
     private final List<Selectable> selectables;
     private final List<Animation> animations;
-    private final Pattern keyPattern;
 
     private Logger logger;
     private Current current;
@@ -46,7 +44,6 @@ public class Game extends JPanel implements Loopable, KeyListener {
         this.interfaces = new ArrayList<>();
         this.selectables = new ArrayList<>();
         this.animations = new ArrayList<>();
-        this.keyPattern = Pattern.compile("[a-zA-Z0-9 ]");
     }
 
     public void launch() {
@@ -133,9 +130,7 @@ public class Game extends JPanel implements Loopable, KeyListener {
             this.selected = this.selected == max ? min : this.selected + 1;
         }
 
-        if (code == KeyEvent.VK_BACK_SPACE || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_TAB || this.keyPattern.matcher(String.valueOf(e.getKeyChar())).matches()) {
-            new ArrayList<>(this.interfaces).forEach(ui -> ui.keyPressed(this, e.getExtendedKeyCode(), e.getKeyChar()));
-        }
+        new ArrayList<>(this.interfaces).forEach(ui -> ui.keyPressed(this, e.getExtendedKeyCode(), e.getKeyChar()));
 
         this.updateSelected();
     }

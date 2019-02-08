@@ -21,7 +21,7 @@ public class DropCommand implements Command {
 
     @Override
     public Argument<?>[] getArguments() {
-        return new Argument[] {
+        return new Argument[]{
             DropCommand.ITEM
         };
     }

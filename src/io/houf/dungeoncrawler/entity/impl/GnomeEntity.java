@@ -25,7 +25,7 @@ public class GnomeEntity extends Entity {
 
     @Override
     public Drop[] drops(Game game) {
-        return new Drop[] {
+        return new Drop[]{
             new Drop(new StickItem(), .25d),
             new Drop(new BananaItem(), .25d)
         };
