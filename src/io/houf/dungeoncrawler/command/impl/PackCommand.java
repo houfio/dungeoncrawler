@@ -1,8 +1,8 @@
 package io.houf.dungeoncrawler.command.impl;
 
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.command.Argument;
-import io.houf.dungeoncrawler.command.ArgumentMap;
+import io.houf.dungeoncrawler.argument.Argument;
+import io.houf.dungeoncrawler.argument.ArgumentMap;
 import io.houf.dungeoncrawler.command.Command;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 

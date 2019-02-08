@@ -1,14 +1,13 @@
 package io.houf.dungeoncrawler.command;
 
 import io.houf.dungeoncrawler.Game;
+import io.houf.dungeoncrawler.argument.ArgumentMap;
 import io.houf.dungeoncrawler.command.impl.*;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommandHandler {
     public static final Command[] COMMANDS = {
@@ -22,12 +21,6 @@ public class CommandHandler {
         new UseCommand()
     };
 
-    public static List<String> getCommandNames() {
-        return Arrays.stream(CommandHandler.COMMANDS)
-            .map(Command::getName)
-            .collect(Collectors.toList());
-    }
-
     public LogUI.RawLogLine handle(Game game, String input) {
         var parts = input.split(" ");
         var command = Arrays.stream(CommandHandler.COMMANDS)
@@ -39,16 +32,20 @@ public class CommandHandler {
             return new LogUI.RawLogLine("Invalid command.", Color.WHITE);
         }
 
-        var arguments = this.parseArguments(command, Arrays.copyOfRange(parts, 1, parts.length));
+        try {
+            var arguments = this.parseArguments(game, command, Arrays.copyOfRange(parts, 1, parts.length));
 
-        if (arguments == null) {
-            return new LogUI.RawLogLine("Invalid arguments.", Color.WHITE);
+            return command.execute(game, arguments);
+        } catch (RuntimeException e) {
+            if (e.getMessage() == null) {
+                return new LogUI.RawLogLine("Invalid arguments.", Color.WHITE);
+            } else {
+                return new LogUI.RawLogLine(e.getMessage(), Color.RED);
+            }
         }
-
-        return command.execute(game, arguments);
     }
 
-    public String getSuggested(String input) {
+    public String getSuggested(Game game, String input) {
         if (input.trim().isEmpty()) {
             return "";
         }
@@ -81,7 +78,7 @@ public class CommandHandler {
                 continue;
             }
 
-            var s = argument.validator.getSuggested(parts[i]);
+            var s = argument.validator.getSuggested(game, parts[i]);
 
             if (s != null) {
                 suggested
@@ -93,26 +90,26 @@ public class CommandHandler {
         return suggested.toString();
     }
 
-    private ArgumentMap parseArguments(Command command, String[] array) {
+    private ArgumentMap parseArguments(Game game, Command command, String[] array) {
         var map = new HashMap<String, Object>();
         var arguments = command.getArguments();
 
         if (array.length > arguments.length) {
-            return null;
+            throw new RuntimeException();
         }
 
         for (var i = 0; i < arguments.length; i++) {
             var argument = arguments[i];
 
             if (argument.required && i > array.length - 1) {
-                return null;
+                throw new RuntimeException();
             }
 
             if (i <= array.length - 1) {
-                var value = argument.validator.parse(array[i]);
+                var value = argument.validator.parse(game, array[i]);
 
                 if (value == null) {
-                    return null;
+                    throw new RuntimeException(argument.validator.getError(game, array[i]));
                 }
 
                 map.put(argument.name, value);

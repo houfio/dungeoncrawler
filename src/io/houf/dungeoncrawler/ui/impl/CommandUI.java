@@ -82,7 +82,7 @@ public class CommandUI extends UI implements Selectable, Logger {
         } else if (code == KeyEvent.VK_BACK_SPACE) {
             if (this.command.length() > 0) {
                 this.command.setLength(this.command.length() - 1);
-                this.updateSuggested();
+                this.updateSuggested(game);
             }
         } else if (code == KeyEvent.VK_TAB) {
             if (!this.suggested.isEmpty() && this.suggested.length() > this.command.length()) {
@@ -96,7 +96,7 @@ public class CommandUI extends UI implements Selectable, Logger {
                 this.command.setLength(0);
                 this.command.append(this.history.get(this.back - 1));
 
-                this.updateSuggested();
+                this.updateSuggested(game);
             }
         } else if (code == KeyEvent.VK_DOWN) {
             if (this.back > 0) {
@@ -107,11 +107,11 @@ public class CommandUI extends UI implements Selectable, Logger {
                     this.command.append(this.history.get(this.back - 1));
                 }
 
-                this.updateSuggested();
+                this.updateSuggested(game);
             }
         } else if ((key != ' ' || !this.command.toString().endsWith(" ")) && this.isPrintableChar(key)) {
             this.command.append(key);
-            this.updateSuggested();
+            this.updateSuggested(game);
         }
     }
 
@@ -121,8 +121,8 @@ public class CommandUI extends UI implements Selectable, Logger {
         return !Character.isISOControl(c) && c != KeyEvent.CHAR_UNDEFINED && block != null && block != Character.UnicodeBlock.SPECIALS;
     }
 
-    private void updateSuggested() {
-        this.suggested = this.handler.getSuggested(this.command.toString());
+    private void updateSuggested(Game game) {
+        this.suggested = this.handler.getSuggested(game, this.command.toString());
     }
 
     @Override
@@ -132,7 +132,7 @@ public class CommandUI extends UI implements Selectable, Logger {
 
     @Override
     public void executeCommand(Game game, String command) {
-        var result = this.handler.handle(game, command);
+        var result = this.handler.handle(game, command.toLowerCase());
 
         this.suggested = "";
 

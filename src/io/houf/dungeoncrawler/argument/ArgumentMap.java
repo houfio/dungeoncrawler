@@ -1,4 +1,4 @@
-package io.houf.dungeoncrawler.command;
+package io.houf.dungeoncrawler.argument;
 
 import java.util.Map;
 

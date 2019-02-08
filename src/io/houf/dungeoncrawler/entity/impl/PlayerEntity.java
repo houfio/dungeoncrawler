@@ -24,10 +24,8 @@ public class PlayerEntity extends Entity {
         return 2;
     }
 
-    public Item getItem(String name) {
+    public boolean hasItem(Item item) {
         return this.items.stream()
-            .filter(i -> i != null && i.name.equals(name))
-            .findFirst()
-            .orElse(null);
+            .anyMatch(i -> i.name.equals(item.name));
     }
 }

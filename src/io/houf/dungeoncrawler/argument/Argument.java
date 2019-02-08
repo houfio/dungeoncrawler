@@ -1,4 +1,6 @@
-package io.houf.dungeoncrawler.command;
+package io.houf.dungeoncrawler.argument;
+
+import io.houf.dungeoncrawler.validator.Validator;
 
 public class Argument<T> {
     public final String name;

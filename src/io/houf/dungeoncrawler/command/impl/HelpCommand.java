@@ -1,8 +1,12 @@
 package io.houf.dungeoncrawler.command.impl;
 
 import io.houf.dungeoncrawler.Game;
-import io.houf.dungeoncrawler.command.*;
+import io.houf.dungeoncrawler.argument.Argument;
+import io.houf.dungeoncrawler.argument.ArgumentMap;
+import io.houf.dungeoncrawler.command.Command;
+import io.houf.dungeoncrawler.command.CommandHandler;
 import io.houf.dungeoncrawler.ui.impl.LogUI;
+import io.houf.dungeoncrawler.validator.impl.CommandValidator;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -10,7 +14,7 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class HelpCommand implements Command {
-    private Argument<String> command;
+    private final Argument<Command> command = new Argument<>("command", "Command to receive detailed information about", false, new CommandValidator());
 
     @Override
     public String getName() {
@@ -19,10 +23,6 @@ public class HelpCommand implements Command {
 
     @Override
     public Argument<?>[] getArguments() {
-        if (this.command == null) {
-        	this.command = new Argument<>("command", "Command to receive detailed information about", false, new OptionValidator(CommandHandler.getCommandNames()));
-        }
-
         return new Argument[]{
             this.command
         };
@@ -44,15 +44,7 @@ public class HelpCommand implements Command {
             return new LogUI.RawLogLine(lines.keySet().stream().map(key -> key + lines.get(key)).collect(Collectors.joining("\n ")), Color.WHITE);
         }
 
-        var name = arguments.get(this.command);
-        var command = Arrays.stream(CommandHandler.COMMANDS)
-            .filter(c -> c.getName().equals(name))
-            .findFirst()
-            .orElse(null);
-
-        if (command == null) {
-            return new LogUI.RawLogLine("Invalid command.", Color.WHITE);
-        }
+        var command = arguments.get(this.command);
 
         var help = Arrays.stream(command.getArguments())
             .map(argument -> this.getArgumentHelp(argument, true))
