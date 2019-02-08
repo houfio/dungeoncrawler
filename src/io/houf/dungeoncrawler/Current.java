@@ -40,10 +40,7 @@ public class Current implements InputListener {
         Arrays.stream(this.getRooms())
             .forEach(room -> this.floor.addRoom(this.game, this.player, room));
 
-        this.x = 2;
-        this.y = 2;
-
-        this.currentRoom().onEnter(this.game);
+        this.setLocation(2, 2);
 
         this.input.addListener(this);
         new Thread(this.input::start).start();

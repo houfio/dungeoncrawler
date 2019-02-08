@@ -8,6 +8,8 @@ import io.houf.dungeoncrawler.item.Item;
 import io.houf.dungeoncrawler.ui.LogLine;
 import io.houf.dungeoncrawler.validator.impl.BackpackValidator;
 
+import java.awt.*;
+
 public class UseCommand implements Command {
     private final Argument<Item> item = new Argument<>("item", "The item to use", true, new BackpackValidator());
 
@@ -32,8 +34,10 @@ public class UseCommand implements Command {
 
         if (replacement == null) {
             player.items.remove(index);
-        } else {
+        } else if (!player.hasItem(replacement)) {
             player.items.set(index, replacement);
+        } else {
+            game.getLogger().printLine("You already have that item in your backpack.", Color.RED);
         }
 
         return null;
