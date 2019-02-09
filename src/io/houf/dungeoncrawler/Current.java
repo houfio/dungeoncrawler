@@ -55,29 +55,29 @@ public class Current implements InputListener {
 
     private Room[] getRooms() {
         return new Room[]{
-            new Room(1, 0, new Encounter(new ItemEntity(new KeyItem(), 40.0f, 115.0f), 1.0d)),
+            new Room(1, 0, "It's the end of the hallway.", new Encounter(new ItemEntity(new KeyItem(), 40.0f, 115.0f), 1.0d)),
             new Room(2, 0),
-            new Room(4, 0),
-            new Room(0, 1),
+            new Room(4, 0, "It's the end of the hallway."),
+            new Room(0, 1, "It's the end of the hallway."),
             new Room(2, 1),
             new Room(3, 1),
             new Room(4, 1),
             new Room(0, 2),
             new Room(1, 2),
-            new Room(2, 2, new Encounter(new HoleEntity(), 1.0d)),
+            new Room(2, 2, "There's a giant hole in the ceiling, if only you could get to it...", new Encounter(new HoleEntity(), 1.0d)),
             new Room(4, 2),
-            new Room(5, 2, new Encounter(new GateEntity(190.0f, 113.0f), 1.0d)),
+            new Room(5, 2, "There's some kind of gate in the room.", new Encounter(new GateEntity(190.0f, 113.0f), 1.0d)),
             new Room(2, 3),
-            new Room(3, 3, new Encounter(new ItemEntity(new KeyItem(), 190.0f, 40.0f), 1.0d)),
-            new Room(0, 4, new Encounter(new GateEntity(113.0f, 40.0f), 1.0d)),
+            new Room(3, 3, "It's a normal room.", new Encounter(new ItemEntity(new KeyItem(), 190.0f, 40.0f), 1.0d)),
+            new Room(0, 4, "There's some kind of gate in the room.", new Encounter(new GateEntity(113.0f, 40.0f), 1.0d)),
             new Room(2, 4),
             new Room(3, 4),
             new Room(4, 4),
-            new Room(5, 4),
+            new Room(5, 4, "It's the end of the hallway."),
             new Room(0, 5),
             new Room(1, 5),
             new Room(2, 5),
-            new Room(4, 5, new Encounter(new ItemEntity(new StepladderItem(), 115.0f, 190.0f), 1.0d))
+            new Room(4, 5, "Looks like you found the item you're looking for.", new Encounter(new ItemEntity(new StepladderItem(), 115.0f, 190.0f), 1.0d))
         };
     }
 

@@ -14,6 +14,7 @@ public class Room {
 
     public final int x;
     public final int y;
+    public final String description;
 
     private final Map<Side, Room> doors;
     private final Encounter[] encounters;
@@ -21,7 +22,11 @@ public class Room {
     private boolean entered = false;
 
     public Room(int x, int y) {
-        this(x, y,
+        this(x, y, "It's a normal room.");
+    }
+
+    public Room(int x, int y, String description) {
+        this(x, y, description,
             // Default hostile encounters
             new Encounter(new GnomeEntity(40.0f, 40.0f), 0.5d),
             new Encounter(new GnomeEntity(190.0f, 40.0f), 0.5d),
@@ -30,9 +35,10 @@ public class Room {
         );
     }
 
-    public Room(int x, int y, Encounter... encounters) {
+    public Room(int x, int y, String description, Encounter... encounters) {
         this.x = x;
         this.y = y;
+        this.description = description;
         this.entities = new ArrayList<>();
         this.doors = new HashMap<>();
         this.encounters = encounters;

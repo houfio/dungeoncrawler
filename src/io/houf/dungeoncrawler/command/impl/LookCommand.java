@@ -42,19 +42,11 @@ public class LookCommand implements Command {
         var hostile = current.currentRoom().entities.stream()
             .filter(Entity::hostile)
             .count();
-        // Check if there's a gate in the room
-        var gate = current.currentRoom().entities.stream()
-            .anyMatch(e -> e instanceof GateEntity);
-        // Check if there's a hole in the ceiling (start room)
-        var hole = current.currentRoom().entities.stream()
-            .anyMatch(e -> e instanceof HoleEntity);
 
-        var doorMessage = "You see the following doors in the room: " + String.join(", ", doors) + ". ";
-        var itemMessage = items.size() > 0 ? "You found the following items on the floor: " + String.join(", ", items) + ". " : "";
-        var hostileMessage = hostile > 0 ? "There are " + hostile + " monster(s) in the room. " : "";
-        var gateMessage = gate ? "Also, there seems to be a some kind of gate in the room. " : "";
-        var holeMessage = hole ? "There's a huge hole in the ceiling. If only you could get to it... " : "";
+        var doorMessage = "You see the following doors: " + String.join(", ", doors) + ". ";
+        var itemMessage = items.size() > 0 ? "You found some items on the floor: " + String.join(", ", items) + ". " : "";
+        var hostileMessage = hostile > 0 ? "There are " + hostile + " monster(s) blocking your way. " : "";
 
-        return new LogLine(doorMessage + itemMessage + hostileMessage + gateMessage + holeMessage, Color.GREEN);
+        return new LogLine(current.currentRoom().description + " " + doorMessage + itemMessage + hostileMessage, Color.GREEN);
     }
 }

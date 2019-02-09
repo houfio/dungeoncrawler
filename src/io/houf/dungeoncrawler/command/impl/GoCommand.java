@@ -35,7 +35,7 @@ public class GoCommand implements Command {
 
         if (hasHostile) {
             // If so, I'm sure they'll (eventually) block your way
-            return new LogLine("There are monsters in the room that block your way.", Color.RED);
+            return new LogLine("There are monsters in the room blocking your way.", Color.RED);
         } else if (!game.getCurrent().move(side)) {
             // Block player from walking into non-existent room
             return new LogLine("You could't walk to the " + name + ".", Color.RED);
