@@ -28,7 +28,7 @@ public class LookCommand implements Command {
     public LogLine execute(Game game, ArgumentMap arguments) {
         var current = game.getCurrent();
         // Get all the doors in the room
-        var doors = current.getDoors()
+        var doors = current.currentRoom().getDoors()
             .stream()
             .map(d -> d.name().toLowerCase())
             .collect(Collectors.toList());

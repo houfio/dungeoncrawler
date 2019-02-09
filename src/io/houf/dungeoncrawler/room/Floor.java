@@ -31,4 +31,17 @@ public class Floor {
 
         return this.rooms[x][y];
     }
+
+    public void initialize(Game game) {
+        for (var i = 0; i < this.width; i++) {
+            for (var j = 0; j < this.height; j++) {
+                var room = this.rooms[i][j];
+
+                if (room != null) {
+                    // Initialize room
+                    room.initialize(game);
+                }
+            }
+        }
+    }
 }

@@ -6,10 +6,8 @@ import io.houf.dungeoncrawler.entity.impl.GnomeEntity;
 import io.houf.dungeoncrawler.entity.impl.ItemEntity;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.*;
 
 public class Room {
     public final List<Entity> entities;
@@ -17,6 +15,7 @@ public class Room {
     public final int x;
     public final int y;
 
+    private final Map<Side, Room> doors;
     private final Encounter[] encounters;
 
     private boolean entered = false;
@@ -35,12 +34,31 @@ public class Room {
         this.x = x;
         this.y = y;
         this.entities = new ArrayList<>();
+        this.doors = new HashMap<>();
         this.encounters = encounters;
     }
 
+    public void initialize(Game game) {
+        for (var side : Side.values()) {
+            var room = game.getCurrent().floor.getRoom(this.x + side.x, this.y + side.y);
+
+            if (room != null) {
+                this.doors.put(side, room);
+            }
+        }
+    }
+
+    public Set<Side> getDoors() {
+        return this.doors.keySet();
+    }
+
+    public Room getRoomOnSide(Side side) {
+        return this.doors.get(side);
+    }
+
     public void addEntity(Game game, Entity entity) {
-        this.entities.add(entity);
         entity.initialize(game);
+        this.entities.add(entity);
     }
 
     public void update(Game game) {

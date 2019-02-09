@@ -15,9 +15,7 @@ import io.houf.dungeoncrawler.room.Side;
 
 import java.awt.*;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class Current implements InputListener {
     public final Floor floor;
@@ -40,6 +38,7 @@ public class Current implements InputListener {
         // Add the rooms to the floor
         Arrays.stream(this.getRooms())
             .forEach(room -> this.floor.addRoom(this.game, this.player, room));
+        this.floor.initialize(this.game);
 
         // Set the start location
         this.setLocation(2, 2);
@@ -87,17 +86,8 @@ public class Current implements InputListener {
         return this.floor.getRoom(this.x, this.y);
     }
 
-    public List<Side> getDoors() {
-        // Get the doors of current room
-        return Arrays.stream(Side.values())
-            .filter(side -> this.floor.getRoom(this.x + side.x, this.y + side.y) != null)
-            .collect(Collectors.toList());
-    }
-
     public boolean move(Side side) {
-        var xNew = this.x + side.x;
-        var yNew = this.y + side.y;
-        var newRoom = this.floor.getRoom(xNew, yNew);
+        var newRoom = this.currentRoom().getRoomOnSide(side);
 
         if (newRoom == null) {
             // If there's no room on that side, give up
@@ -123,7 +113,7 @@ public class Current implements InputListener {
                     g.fillRect(75, 75, 300, 300);
                 })
                 .callback(25, a1 -> {
-                    this.setLocation(xNew, yNew);
+                    this.setLocation(newRoom.x, newRoom.y);
 
                     if (side.horizontal) {
                         this.player.setLocation(side == Side.EAST ? 0.0f : 228.0f, -1.0f);
@@ -141,7 +131,7 @@ public class Current implements InputListener {
                 }));
         } else {
             // Just update the location in console mode
-            this.setLocation(xNew, yNew);
+            this.setLocation(newRoom.x, newRoom.y);
         }
 
         return true;

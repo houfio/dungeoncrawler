@@ -30,7 +30,7 @@ public class RoomUI extends UI {
         g.drawImage(this.room, 100, 100, null, null);
 
         // Draw the carpet to the doors
-        for (var exit : current.getDoors()) {
+        for (var exit : current.currentRoom().getDoors()) {
             switch (exit) {
                 case NORTH:
                     g.drawImage(this.carpet, 194, 85, 256, 195, 109, 0, 171, 110, null, null);
