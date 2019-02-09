@@ -25,7 +25,7 @@ public class QuitCommand implements Command {
         if (game.hasUI) {
             game.openUI(new MainUI());
         } else {
-            // Don't go to main uit if the game is in console mode
+            // Don't go to main ui if the game is in console mode
             game.quit();
         }
 

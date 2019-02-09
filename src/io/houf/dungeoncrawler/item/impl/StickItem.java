@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class StickItem extends Item {
     public StickItem() {
-        super("stick");
+        super("stick", "The stick still has a leaf.");
     }
 
     @Override

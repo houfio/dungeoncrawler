@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class StepladderItem extends Item {
     public StepladderItem() {
-        super("stepladder");
+        super("stepladder", "How convenient!");
     }
 
     @Override

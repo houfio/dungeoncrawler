@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class GunItem extends Item {
     public GunItem() {
-        super("gun");
+        super("gun", "When you blow in the barrel it makes a funny noise.");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class GunItem extends Item {
 
         var xDelta = xEnemy - xPlayer;
         var yDelta = yEnemy - yPlayer;
-        // Calculate where point the barrel
+        // Calculate where to point the barrel
         var radians = Math.atan2(yDelta, xDelta);
 
         // Add bullet entity with velocity towards the hostile entity
@@ -51,7 +51,7 @@ public class GunItem extends Item {
 
     @Override
     public boolean drop() {
-        // Please don't drop your gun you'll break the game
+        // Please don't drop your gun, you'll break the game
         return false;
     }
 }

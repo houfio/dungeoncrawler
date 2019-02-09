@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class KeyItem extends Item {
     public KeyItem() {
-        super("key");
+        super("key", "You wonder in what hole to put the key.");
     }
 
     @Override

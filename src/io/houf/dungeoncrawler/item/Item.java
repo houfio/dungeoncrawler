@@ -7,10 +7,12 @@ import java.awt.image.BufferedImage;
 
 public class Item {
     public final String name;
+    public final String description;
     public final BufferedImage image;
 
-    public Item(String name) {
+    public Item(String name, String description) {
         this.name = name;
+        this.description = description;
         // Read the asset but let somebody else render it
         this.image = Asset.read("item/" + this.name);
     }

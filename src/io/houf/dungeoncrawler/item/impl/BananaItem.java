@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class BananaItem extends Item {
     public BananaItem() {
-        super("banana");
+        super("banana", "You hold the big yellow banana firmly.");
     }
 
     @Override

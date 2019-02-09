@@ -15,6 +15,7 @@ public class CommandHandler {
         new GetCommand(),
         new GoCommand(),
         new HelpCommand(),
+        new ItemCommand(),
         new LookCommand(),
         new PackCommand(),
         new QuitCommand(),
