@@ -13,6 +13,7 @@ public class SideValidator extends Validator<Side> {
 
     @Override
     public Side parse(Game game, String input) {
+        // Filter sides on input
         return Arrays.stream(Side.values())
             .filter(side -> side.name().toLowerCase().equals(input))
             .findFirst()

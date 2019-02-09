@@ -29,18 +29,22 @@ public class GetCommand implements Command {
     public LogLine execute(Game game, ArgumentMap arguments) {
         var player = game.getCurrent().player;
 
-        if (player.items.size() >= 4) {
+        if (player.backpack.size() >= 4) {
+            // For some reason I decided to limit the backpack at 4 items
             return new LogLine("Your backpack is completely full.", Color.RED);
         }
 
         var entity = arguments.get(this.item);
 
         if (player.hasItem(entity.item)) {
+            // And you also can't have more than one of the same item...
             return new LogLine("You already have that item in your backpack.", Color.RED);
         }
 
+        // Remove the item from the room
         entity.setDead();
-        player.items.add(entity.item);
+        // And add it to the player's backpack
+        player.backpack.add(entity.item);
 
         game.getAudio().play("get");
 

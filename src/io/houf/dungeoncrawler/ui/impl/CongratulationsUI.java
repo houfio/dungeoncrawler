@@ -16,12 +16,14 @@ public class CongratulationsUI extends UI {
         this.againButton = new ButtonUI("Play again", 100, 180) {
             @Override
             public void click(Game game) {
+                // Start the game again by opening the game ui
                 game.openUI(new GameUI());
             }
         };
         this.menuButton = new ButtonUI("Back to menu", 100, 220) {
             @Override
             public void click(Game game) {
+                // Go back to the start screen
                 game.openUI(new MainUI());
             }
         };

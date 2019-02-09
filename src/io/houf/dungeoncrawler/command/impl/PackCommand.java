@@ -22,7 +22,8 @@ public class PackCommand implements Command {
 
     @Override
     public LogLine execute(Game game, ArgumentMap arguments) {
-        var items = game.getCurrent().player.items
+        // Get all item names from backpack
+        var items = game.getCurrent().player.backpack
             .stream()
             .map(i -> i.name)
             .collect(Collectors.toList());

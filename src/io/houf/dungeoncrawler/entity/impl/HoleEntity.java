@@ -14,6 +14,7 @@ public class HoleEntity extends Entity {
         if (game.hasUI) {
             game.openUI(new CongratulationsUI());
         } else {
+            // Text got printed elsewhere, just quit the same in console mode
             game.quit();
         }
     }

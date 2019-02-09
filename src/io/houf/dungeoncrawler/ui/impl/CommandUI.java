@@ -53,6 +53,7 @@ public class CommandUI extends UI implements Selectable, Logger {
         var text = "> " + this.command;
 
         if (this.selected && this.blink % 30 > 15) {
+            // Add blinking cursor to text
             text += "_";
         }
 
@@ -63,36 +64,46 @@ public class CommandUI extends UI implements Selectable, Logger {
     @Override
     public void keyPressed(Game game, int code, char key) {
         if (!this.selected) {
+            // Don't bother when not selected
             return;
         }
 
         if (code == KeyEvent.VK_ENTER) {
+            // Don't submit if no command is given
             if (this.command.toString().trim().length() > 0) {
                 var str = this.command.toString();
 
+                // Execute the given command
                 this.executeCommand(game, str);
 
                 if (this.history.size() == 0 || !this.history.get(0).equals(str)) {
+                    // Add command to history if not the same as last command
                     this.history.add(0, str);
                 }
 
+                // Reset command
                 this.command.setLength(0);
+                // Reset history index
                 this.back = 0;
             }
         } else if (code == KeyEvent.VK_BACK_SPACE) {
             if (this.command.length() > 0) {
+                // Remove last character from command
                 this.command.setLength(this.command.length() - 1);
                 this.updateSuggested(game);
             }
         } else if (code == KeyEvent.VK_TAB) {
             if (!this.suggested.isEmpty() && this.suggested.length() >= this.command.length()) {
+                // Update command to suggested if at least the same length (otherwise you may reset the command if there's no suggestion)
                 this.command.setLength(0);
                 this.command.append(this.suggested).append(" ");
             }
         } else if (code == KeyEvent.VK_UP) {
             if (this.back < this.history.size()) {
+                // Increment history index
                 this.back++;
 
+                //Set command to history entry
                 this.command.setLength(0);
                 this.command.append(this.history.get(this.back - 1));
 
@@ -100,28 +111,34 @@ public class CommandUI extends UI implements Selectable, Logger {
             }
         } else if (code == KeyEvent.VK_DOWN) {
             if (this.back > 0) {
+                // Decrement history index
                 this.back--;
                 this.command.setLength(0);
 
                 if (this.back > 0) {
+                    // If bigger than zero get history entry
                     this.command.append(this.history.get(this.back - 1));
                 }
 
                 this.updateSuggested(game);
             }
         } else if ((key != ' ' || !this.command.toString().endsWith(" ")) && this.isPrintableChar(key)) {
+            // Append typed character
             this.command.append(key);
             this.updateSuggested(game);
         }
     }
 
     private boolean isPrintableChar(char c) {
+        // Get unicode block from character
         var block = Character.UnicodeBlock.of(c);
 
+        // Make sure typed key is not undefined nor a special character
         return !Character.isISOControl(c) && c != KeyEvent.CHAR_UNDEFINED && block != null && block != Character.UnicodeBlock.SPECIALS;
     }
 
     private void updateSuggested(Game game) {
+        // Update command suggestion
         this.suggested = this.handler.getSuggested(game, this.command.toString());
     }
 
@@ -132,11 +149,14 @@ public class CommandUI extends UI implements Selectable, Logger {
 
     @Override
     public void executeCommand(Game game, String command) {
+        // Make sure capitalization doesn't matter in command
         var result = this.handler.handle(game, command.toLowerCase());
 
+        // Reset suggestion
         this.suggested = "";
 
         if (result != null) {
+            // Print command result if not null
             this.log.addLine(result.line, result.color);
         }
     }

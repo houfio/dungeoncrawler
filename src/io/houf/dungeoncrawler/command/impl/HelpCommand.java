@@ -30,9 +30,11 @@ public class HelpCommand implements Command {
 
     @Override
     public LogLine execute(Game game, ArgumentMap arguments) {
+        // Since this argument if optional, check if player has given it
         if (!arguments.has(this.command)) {
             var lines = new HashMap<String, String>();
 
+            // If not, print less-detailed information about all commands
             for (var command : CommandHandler.COMMANDS) {
                 String help = Arrays.stream(command.getArguments())
                     .map(argument -> this.getArgumentHelp(argument, false))
@@ -46,6 +48,7 @@ public class HelpCommand implements Command {
 
         var command = arguments.get(this.command);
 
+        // Needs a space after the newline, otherwise the log ui doesn't split the words
         var help = Arrays.stream(command.getArguments())
             .map(argument -> this.getArgumentHelp(argument, true))
             .reduce("", (a, b) -> a + "\n " + b);
@@ -57,6 +60,7 @@ public class HelpCommand implements Command {
         var name = argument.required ? "<" + argument.name + ">" : "[" + argument.name + "]";
 
         if (!detailed) {
+            // Don't add argument description and type if less-detailed help is requested
             return name;
         }
 

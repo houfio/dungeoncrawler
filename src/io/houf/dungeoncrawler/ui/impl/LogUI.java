@@ -28,23 +28,28 @@ public class LogUI extends UI {
         var offset = 0;
         var lines = new ArrayList<>(this.lines);
 
+        // Draw lines from top to bottom
         Collections.reverse(lines);
 
         for (var i = 0; i < lines.size(); i++) {
             var maxLines = 25;
 
             if (offset > maxLines) {
+                // If outside ui, don't bother
                 break;
             }
 
             var line = lines.get(i);
 
+            // Set log line color with custom opacity
             g.setColor(new Color(line.color.getRed(), line.color.getGreen(), line.color.getBlue(), i == 0 ? 255 : 155));
 
             for (var text : line.text) {
+                // Draw a single log line
                 g.drawString(text, 465, 58 + offset * 15);
 
                 if (++offset > maxLines) {
+                    // Break loop when outside ui
                     break;
                 }
             }
@@ -55,6 +60,7 @@ public class LogUI extends UI {
         var lines = new ArrayList<String>();
         var words = line.split(" ");
 
+        // Start all lines with a dollar sign
         lines.add("$");
 
         for (var word : words) {
@@ -64,17 +70,20 @@ public class LogUI extends UI {
             var maxWidth = 29;
 
             if (added.length() > maxWidth || last.endsWith("\n")) {
+                // If longer than ui width or last line ended with newline, force a new line
                 lines.add(word);
 
                 continue;
             }
 
+            // Add word to current line
             lines.set(lines.size() - 1, added);
         }
 
         this.lines.add(new Line(lines, color));
 
-        System.out.println(line);
+        // Print log line to console for console mode
+        System.out.println(line.replace("\n ", "\n"));
     }
 
     private class Line {

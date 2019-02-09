@@ -8,16 +8,12 @@ import java.awt.*;
 public class PackUI extends UI {
     @Override
     public void render(Game game, Graphics2D g) {
-        var items = game.getCurrent().player.items;
+        var items = game.getCurrent().player.backpack;
         var size = items.size();
 
         for (var i = 0; i < size; i++) {
             var item = items.get(i);
             var y = 450 - (size - i) * 25;
-
-            if (item == null) {
-                continue;
-            }
 
             g.setColor(Color.WHITE);
             g.drawImage(item.image, 10, y, null, null);

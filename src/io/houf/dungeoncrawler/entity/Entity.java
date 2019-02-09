@@ -48,21 +48,26 @@ public abstract class Entity {
         this.velocityX *= this.gravity;
         this.velocityY *= this.gravity;
 
-        var collided = false;
+        var bounced = false;
 
+        // Check if out of bounds on x axis (the walls are 10px thick)
         if ((this.x <= 10 && this.velocityX < 0.0f) || (this.x >= 240 - this.width && this.velocityX > 0.0f)) {
+            // Invert x velocity
             this.velocityX *= -1;
 
-            collided = true;
+            bounced = true;
         }
 
+        // Check if out of bounds on y axis (the walls are 10px thick)
         if ((this.y <= 10 && this.velocityY < 0.0f) || (this.y >= 240 - this.height && this.velocityY > 0.0f)) {
+            // Invert y velocity
             this.velocityY *= -1;
 
-            collided = true;
+            bounced = true;
         }
 
-        if (collided && this.sound()) {
+        if (bounced && this.sound()) {
+            // Play bounce sound
             game.getAudio().play("collide");
         }
 
@@ -96,35 +101,41 @@ public abstract class Entity {
         return true;
     }
 
-    public float getX() {
-        return this.x;
+    public void move(float x, float y) {
+        this.x += x;
+        this.y += y;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public void setLocation(float x, float y) {
+        if (x >= 0.0f) {
+            // Only update x if valid location
+            this.x = x;
+        }
+
+        if (y >= 0.0f) {
+            // Only update y if valid location
+            this.y = y;
+        }
+    }
+
+    public float getX() {
+        return this.x;
     }
 
     public float getY() {
         return this.y;
     }
 
-    public void setY(float y) {
-        this.y = y;
-    }
-
     public float getVelocityX() {
         return this.velocityX;
-    }
-
-    public void setVelocityX(float x) {
-        this.velocityX = x;
     }
 
     public float getVelocityY() {
         return this.velocityY;
     }
 
-    public void setVelocityY(float y) {
+    public void setVelocity(float x, float y) {
+        this.velocityX = x;
         this.velocityY = y;
     }
 

@@ -14,6 +14,7 @@ public class KeyItem extends Item {
     @Override
     public Item onUse(Game game) {
         var room = game.getCurrent().currentRoom();
+        // Find a gate entity
         var entity = room.entities.stream()
             .filter(e -> e instanceof GateEntity)
             .findFirst()
@@ -29,6 +30,7 @@ public class KeyItem extends Item {
 
         ((GateEntity) entity).activate(game);
 
+        // Consume key if thrown into gate
         return null;
     }
 }

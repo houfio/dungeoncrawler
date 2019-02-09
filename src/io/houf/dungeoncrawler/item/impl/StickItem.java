@@ -12,6 +12,7 @@ public class StickItem extends Item {
 
     @Override
     public Item onUse(Game game) {
+        // It's a poor quality stick
         game.getLogger().printLine("You swing the stick in the wild. It breaks.", Color.ORANGE);
         game.getAudio().play("use");
 

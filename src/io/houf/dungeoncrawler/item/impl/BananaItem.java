@@ -12,6 +12,7 @@ public class BananaItem extends Item {
 
     @Override
     public Item onUse(Game game) {
+        // I had to come up with something...
         game.getLogger().printLine("You peeled the banana", Color.YELLOW);
         game.getAudio().play("use");
 

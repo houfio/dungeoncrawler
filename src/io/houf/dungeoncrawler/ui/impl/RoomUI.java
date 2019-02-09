@@ -18,6 +18,7 @@ public class RoomUI extends UI {
 
     @Override
     public void update(Game game) {
+        // Update the entities of current room
         game.getCurrent().currentRoom().update(game);
     }
 
@@ -25,8 +26,10 @@ public class RoomUI extends UI {
     public void render(Game game, Graphics2D g) {
         var current = game.getCurrent();
 
+        // Draw the main room asset
         g.drawImage(this.room, 100, 100, null, null);
 
+        // Draw the carpet to the doors
         for (var exit : current.getDoors()) {
             switch (exit) {
                 case NORTH:
@@ -44,6 +47,7 @@ public class RoomUI extends UI {
             }
         }
 
+        // Render the entities of the current room
         current.currentRoom().render(game, g);
     }
 }

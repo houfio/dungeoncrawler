@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// This is my least favorite class
 public abstract class UI {
     public void initialize(Game game) {
     }

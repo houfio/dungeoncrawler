@@ -25,9 +25,11 @@ public class QuitCommand implements Command {
         if (game.hasUI) {
             game.openUI(new MainUI());
         } else {
+            // Don't go to main uit if the game is in console mode
             game.quit();
         }
 
+        // Cya
         return new LogLine("Goodbye.", Color.WHITE);
     }
 }

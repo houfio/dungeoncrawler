@@ -13,6 +13,7 @@ public class GateEntity extends Entity {
     }
 
     public void activate(Game game) {
+        // Atomic integers so java doesn't complain about them not being final
         var size = new AtomicInteger();
         var opacity = new AtomicInteger(255);
 
@@ -29,6 +30,7 @@ public class GateEntity extends Entity {
                 .callback(15, a1 -> game.getCurrent().moveToRandom())
                 .callback(24, a1 -> this.setDead()));
         } else {
+            // If in console mode don't bother with the fancy animation, you can't see it anyway
             this.setDead();
             game.getCurrent().moveToRandom();
         }

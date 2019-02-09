@@ -10,10 +10,12 @@ public class ArgumentMap {
     }
 
     public boolean has(Argument<?> argument) {
+        // Check if optional argument is given
         return this.arguments.containsKey(argument.name);
     }
 
     public <T> T get(Argument<T> argument) {
+        // Parsing happened in CommandHandler, casting _should_ be safe here
         return (T) this.arguments.get(argument.name);
     }
 }

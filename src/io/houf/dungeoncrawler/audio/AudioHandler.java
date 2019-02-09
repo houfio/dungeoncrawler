@@ -18,21 +18,27 @@ public class AudioHandler {
     public AudioHandler(Game game) {
         this.clips = new HashMap<>();
 
+        // Disabled in console mode, also impossible to enable
         this.enabled = game.hasUI;
     }
 
     public void play(String name) {
         if (!this.enabled) {
+            // Don't do anything if audio is disabled
             return;
         } else if (!this.clips.containsKey(name)) {
             try {
+                // Get stream from wav file
                 var stream = AudioSystem.getAudioInputStream(AudioHandler.class.getResourceAsStream("/assets/audio/" + name + ".wav"));
-
                 var clip = AudioSystem.getClip();
+
+                // Open the stream in the created clip
                 clip.open(stream);
 
+                // Save clip for later reference
                 this.clips.put(name, clip);
             } catch (LineUnavailableException | UnsupportedAudioFileException | IOException | NullPointerException e) {
+                // Give message when something breaks
                 System.err.println("Unable to load audio effect");
                 e.printStackTrace();
             }
@@ -41,11 +47,13 @@ public class AudioHandler {
         var clip = this.clips.get(name);
 
         if (clip == null) {
+            // If something happened while loading the clip, don't play it
             return;
         } else if (clip.isRunning()) {
             clip.stop();
         }
 
+        // Replay clip from beginning
         clip.setFramePosition(0);
         clip.start();
     }

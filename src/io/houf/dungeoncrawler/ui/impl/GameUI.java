@@ -14,11 +14,13 @@ public class GameUI extends UI {
 
     @Override
     public void initialize(Game game) {
+        // Initialize the current game
         game.initialize(this.command);
     }
 
     @Override
     public void cleanup(Game game) {
+        // Reset the current game
         game.getCurrent().cleanup();
     }
 
@@ -41,5 +43,6 @@ public class GameUI extends UI {
 
     @Override
     public void render(Game game, Graphics2D g) {
+        // Don't render anything, only the children will render something
     }
 }

@@ -14,6 +14,7 @@ public class CommandValidator extends Validator<Command> {
 
     @Override
     public Command parse(Game game, String input) {
+        // Filter commands on input
         return Arrays.stream(CommandHandler.COMMANDS)
             .filter(command -> command.getName().equals(input))
             .findFirst()

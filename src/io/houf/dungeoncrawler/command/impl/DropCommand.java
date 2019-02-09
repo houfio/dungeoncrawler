@@ -33,10 +33,13 @@ public class DropCommand implements Command {
         var item = arguments.get(this.item);
 
         if (!item.drop()) {
+            // Some items cannot be dropped (like the gun)
             return new LogLine("You decided not to drop your " + item.name + ".", Color.ORANGE);
         }
 
-        player.items.remove(item);
+        // Remove the dropped item from the backpack
+        player.backpack.remove(item);
+        // Add the dropped item as entity to the room with a random velocity for extra fun
         room.addEntity(game, new ItemEntity(item, 114, 109, (float) Math.random() * 100.0f - 50.0f, (float) Math.random() * 100.0f - 50.0f));
 
         return new LogLine("You dropped the " + item.name + " on the floor.", Color.PINK);

@@ -20,11 +20,13 @@ public class StepladderItem extends Item {
             .orElse(null);
 
         if (entity == null) {
+            // Too bad
             game.getLogger().printLine("You tried to use the stepladder, but the ceiling was too low.", Color.ORANGE);
 
             return this;
         }
 
+        // Well done, you
         game.getLogger().printLine("You escaped the dungeon through a hole in the ceiling. Congratulations!", Color.YELLOW);
 
         ((HoleEntity) entity).escape(game);

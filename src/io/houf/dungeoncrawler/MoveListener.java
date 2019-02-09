@@ -28,6 +28,7 @@ public class MoveListener extends MouseAdapter {
     public void mouseDragged(MouseEvent e) {
         var current = e.getLocationOnScreen();
 
+        // Update the frame location
         this.frame.setLocation(current.x - this.pressPosition.x, current.y - this.pressPosition.y);
     }
 }

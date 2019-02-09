@@ -21,14 +21,14 @@ public class ItemEntity extends Entity {
 
         this.item = item;
 
-        this.setVelocityX(velocityX);
-        this.setVelocityY(velocityY);
+        this.setVelocity(velocityX, velocityY);
     }
 
     @Override
     public void update(Game game) {
         super.update(game);
 
+        // Rotate asset when moving
         this.angle += Math.sqrt(Math.pow(this.getVelocityX(), 2) + Math.pow(this.getVelocityY(), 2));
     }
 
@@ -36,6 +36,7 @@ public class ItemEntity extends Entity {
     public void render(Game game, Graphics2D g) {
         super.render(game, g);
 
+        // Draw the item asset instead of entity sprite
         g.drawImage(Asset.rotate(this.item.image, this.angle), 100 + (int) this.getX(), 100 + (int) this.getY(), null, null);
     }
 

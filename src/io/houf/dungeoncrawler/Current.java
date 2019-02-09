@@ -37,16 +37,20 @@ public class Current implements InputListener {
     }
 
     public void initialize() {
+        // Add the rooms to the floor
         Arrays.stream(this.getRooms())
             .forEach(room -> this.floor.addRoom(this.game, this.player, room));
 
+        // Set the start location
         this.setLocation(2, 2);
 
+        // Start listening to console commands
         this.input.addListener(this);
         new Thread(this.input::start).start();
     }
 
     public void cleanup() {
+        // Stop the input listener
         this.input.stop();
     }
 
@@ -79,10 +83,12 @@ public class Current implements InputListener {
     }
 
     public Room currentRoom() {
+        // Get room on current location
         return this.floor.getRoom(this.x, this.y);
     }
 
     public List<Side> getDoors() {
+        // Get the doors of current room
         return Arrays.stream(Side.values())
             .filter(side -> this.floor.getRoom(this.x + side.x, this.y + side.y) != null)
             .collect(Collectors.toList());
@@ -94,14 +100,15 @@ public class Current implements InputListener {
         var newRoom = this.floor.getRoom(xNew, yNew);
 
         if (newRoom == null) {
+            // If there's no room on that side, give up
             return false;
         }
 
         if (this.game.hasUI) {
+            // Start a fancy animation in ui mode
             this.game.startAnimation(50, a -> a
                 .action(0, () -> {
-                    this.player.setX(this.player.getX() + side.x * (114.0f / 25.0f));
-                    this.player.setY(this.player.getY() + side.y * (109.0f / 25.0f));
+                    this.player.move(side.x * (114.0f / 25.0f), side.y * (109.0f / 25.0f));
                 })
                 .keyframe(0, g -> {
                     g.setColor(new Color(0, 0, 0, 55));
@@ -119,9 +126,9 @@ public class Current implements InputListener {
                     this.setLocation(xNew, yNew);
 
                     if (side.horizontal) {
-                        this.player.setX(side == Side.EAST ? 0 : 228);
+                        this.player.setLocation(side == Side.EAST ? 0.0f : 228.0f, -1.0f);
                     } else {
-                        this.player.setY(side == Side.SOUTH ? 0 : 218);
+                        this.player.setLocation(-1.0f, side == Side.SOUTH ? 0.0f : 218.0f);
                     }
                 })
                 .keyframe(30, g -> {
@@ -133,6 +140,7 @@ public class Current implements InputListener {
                     g.fillRect(75, 75, 300, 300);
                 }));
         } else {
+            // Just update the location in console mode
             this.setLocation(xNew, yNew);
         }
 
@@ -145,12 +153,14 @@ public class Current implements InputListener {
         var yNew = this.y;
         Room room = null;
 
+        // Update location while there's no room in random location or random location is the same as the current location
         while (xNew == this.x || yNew == this.y || room == null) {
             xNew = random.nextInt(this.floor.width);
             yNew = random.nextInt(this.floor.height);
             room = this.floor.getRoom(xNew, yNew);
         }
 
+        // Update location to random one
         this.setLocation(xNew, yNew);
     }
 
@@ -158,11 +168,13 @@ public class Current implements InputListener {
         this.x = x;
         this.y = y;
 
+        // Call room enter handler
         this.currentRoom().onEnter(this.game);
     }
 
     @Override
     public void apply(Game game, String input) {
+        // forward all input to the command handler
         game.getLogger().executeCommand(game, input);
     }
 }

@@ -16,12 +16,14 @@ public class GnomeEntity extends Entity {
 
     @Override
     public void initialize(Game game) {
-        game.getLogger().printLine("I'm not a gnelf, I'm not a gnoblin, I'm a gnome!", Color.CYAN);
+        // Hello me old chum
+        game.getLogger().printLine("I'm gnot a gnelf, I'm gnot a gnoblin, I'm a gnome!", Color.CYAN);
         game.getAudio().play("gnome");
     }
 
     @Override
     public boolean hostile() {
+        // This gnome is very hostile and WILL kill you in your sleep
         return true;
     }
 
@@ -29,6 +31,7 @@ public class GnomeEntity extends Entity {
     public Drop[] drops(Game game) {
         return new Drop[]{
             new Drop(new StickItem(), .25d),
+            // Don't ask me why the gnome has a banana
             new Drop(new BananaItem(), .25d)
         };
     }

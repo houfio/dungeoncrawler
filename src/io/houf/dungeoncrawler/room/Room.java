@@ -23,6 +23,7 @@ public class Room {
 
     public Room(int x, int y) {
         this(x, y,
+            // Default hostile encounters
             new Encounter(new GnomeEntity(40.0f, 40.0f), 0.5d),
             new Encounter(new GnomeEntity(190.0f, 40.0f), 0.5d),
             new Encounter(new GnomeEntity(190.0f, 190.0f), 0.5d),
@@ -49,31 +50,37 @@ public class Room {
             if (entity.isDead()) {
                 dead.add(entity);
 
+                // If marked as dead don't update
                 return;
             }
 
             entity.update(game);
 
+            // Check collision with other entities
             e.stream()
                 .filter(e1 -> entity.getX() < e1.getX() + e1.width && entity.getX() + entity.width > e1.getX() && entity.getY() < e1.getY() + e1.height && entity.height + entity.getY() > e1.getY())
                 .forEach(e1 -> entity.collide(game, e1));
         });
 
         dead.forEach(d -> {
+            // Check if dead entity has drops
             var drops = d.drops(game);
 
             if (drops == null) {
                 return;
             }
 
+            // Filter drops on chance and add them to the floor
             Arrays.stream(drops)
                 .filter(drop -> Math.random() > 1.0d - drop.chance)
                 .forEach(drop -> this.addEntity(game, new ItemEntity(drop.item, d.getX(), d.getY(), this.getRandomVelocity(), this.getRandomVelocity())));
         });
+        // Remove all dead entities from room
         this.entities.removeAll(dead);
     }
 
     public void render(Game game, Graphics2D g) {
+        // Render all entities sorted on priority
         new ArrayList<>(this.entities).stream()
             .sorted(Comparator.comparingInt(Entity::priority))
             .forEach(entity -> entity.render(game, g));
@@ -81,18 +88,21 @@ public class Room {
 
     public void onEnter(Game game) {
         if (!this.entered) {
+            // Add random encounters to the room upon first enter
             Arrays.stream(this.encounters)
                 .filter(encounter -> Math.random() > 1.0d - encounter.chance)
                 .forEach(encounter -> this.addEntity(game, encounter.entity));
         }
 
         game.getAudio().play("enter");
+        // Give room introduction upon every enter (mainly for console mode)
         game.getLogger().executeCommand(game, "look");
 
         this.entered = true;
     }
 
     private float getRandomVelocity() {
+        // Get random velocity from -10 to 10
         return (float) Math.random() * 20.0f - 10.0f;
     }
 }

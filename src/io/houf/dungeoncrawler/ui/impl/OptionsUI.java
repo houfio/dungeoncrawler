@@ -16,18 +16,22 @@ public class OptionsUI extends UI {
         this.audioButton = new ButtonUI("Audio", 100, 180) {
             @Override
             public String getDisplayText(Game game) {
+                // Append the current option value to the button name
                 return super.getDisplayText(game) + " (" + (game.getAudio().enabled() ? "on" : "off") + ")";
             }
 
             @Override
             public void click(Game game) {
+                // Toggle the audio option
                 game.getAudio().toggle();
+                // Play select sound to test option value
                 game.getAudio().play("menu");
             }
         };
         this.backButton = new ButtonUI("Back to menu", 100, 220) {
             @Override
             public void click(Game game) {
+                // Go back to the start menu
                 game.openUI(new MainUI());
             }
         };

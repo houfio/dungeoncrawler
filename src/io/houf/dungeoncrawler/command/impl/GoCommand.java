@@ -30,11 +30,14 @@ public class GoCommand implements Command {
     public LogLine execute(Game game, ArgumentMap arguments) {
         var side = arguments.get(this.side);
         var name = side.name().toLowerCase();
+        // Check if there are any hostile entities in the room
         var hasHostile = game.getCurrent().currentRoom().entities.stream().anyMatch(Entity::hostile);
 
         if (hasHostile) {
+            // If so, I'm sure they'll (eventually) block your way
             return new LogLine("There are monsters in the room that block your way.", Color.RED);
         } else if (!game.getCurrent().move(side)) {
+            // Block player from walking into non-existent room
             return new LogLine("You could't walk to the " + name + ".", Color.RED);
         }
 

@@ -11,6 +11,7 @@ public class Item {
 
     public Item(String name) {
         this.name = name;
+        // Read the asset but let somebody else render it
         this.image = Asset.read("item/" + this.name);
     }
 

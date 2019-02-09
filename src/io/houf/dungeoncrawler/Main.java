@@ -26,6 +26,7 @@ public class Main extends JFrame {
         game.launch();
 
         if (hasUI) {
+            // Show ui when in ui mode
             main.setVisible(true);
         }
     }

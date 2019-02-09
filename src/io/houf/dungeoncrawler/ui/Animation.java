@@ -13,7 +13,7 @@ public class Animation {
     private final Map<Integer, Runnable> actions;
     private final Map<Integer, Consumer<Animation>> callbacks;
 
-    private int frame = 0;
+    private int tick = 0;
 
     public Animation(int length) {
         this.length = length;
@@ -22,40 +22,44 @@ public class Animation {
         this.callbacks = new HashMap<>();
     }
 
-    public Animation keyframe(int frame, Consumer<Graphics2D> renderer) {
-        this.keyframes.put(frame, renderer);
+    public Animation keyframe(int tick, Consumer<Graphics2D> renderer) {
+        // Called every frame following the tick
+        this.keyframes.put(tick, renderer);
 
         return this;
     }
 
-    public Animation action(int frame, Runnable action) {
-        this.actions.put(frame, action);
+    public Animation action(int tick, Runnable action) {
+        // Called every update following the tick
+        this.actions.put(tick, action);
 
         return this;
     }
 
-    public Animation callback(int frame, Consumer<Animation> callback) {
-        this.callbacks.put(frame, callback);
+    public Animation callback(int tick, Consumer<Animation> callback) {
+        // Called once on tick
+        this.callbacks.put(tick, callback);
 
         return this;
     }
 
     public void update() {
         this.actions.entrySet().stream()
-            .filter(entry -> this.frame > entry.getKey())
+            .filter(entry -> this.tick > entry.getKey())
             .reduce((a, b) -> b)
             .ifPresent(entry -> entry.getValue().run());
         this.callbacks.entrySet().stream()
-            .filter(entry -> entry.getKey() == this.frame)
+            .filter(entry -> entry.getKey() == this.tick)
             .findFirst()
             .ifPresent(entry -> entry.getValue().accept(this));
 
-        this.frame++;
+        // Increment animation tick
+        this.tick++;
     }
 
     public void render(Graphics2D g) {
         this.keyframes.entrySet().stream()
-            .filter(entry -> this.frame > entry.getKey())
+            .filter(entry -> this.tick > entry.getKey())
             .reduce((a, b) -> b)
             .ifPresent(entry -> entry.getValue().accept(g));
     }

@@ -11,7 +11,8 @@ public class BackpackValidator extends Validator<Item> {
 
     @Override
     public Item parse(Game game, String input) {
-        return game.getCurrent().player.items.stream()
+        // Filter backpack items on input
+        return game.getCurrent().player.backpack.stream()
             .filter(item -> item.name.equals(input))
             .findFirst()
             .orElse(null);
@@ -19,7 +20,7 @@ public class BackpackValidator extends Validator<Item> {
 
     @Override
     public String getSuggested(Game game, String input) {
-        return game.getCurrent().player.items.stream()
+        return game.getCurrent().player.backpack.stream()
             .map(item -> item.name)
             .filter(name -> name.startsWith(input))
             .findFirst()

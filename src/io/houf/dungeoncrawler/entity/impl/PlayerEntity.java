@@ -9,23 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerEntity extends Entity {
-    public final List<Item> items;
+    public final List<Item> backpack;
 
     public PlayerEntity() {
         super(new Sprite("entity/player", 22, 3), 114, 109, 22, 32);
 
-        this.items = new ArrayList<>() {{
+        // Initialize backpack with a gun
+        this.backpack = new ArrayList<>() {{
             add(new GunItem());
         }};
     }
 
     @Override
     public int priority() {
+        // Render above all other entities
         return 2;
     }
 
     public boolean hasItem(Item item) {
-        return this.items.stream()
+        // Check if player has specified item in backpack
+        return this.backpack.stream()
             .anyMatch(i -> i.name.equals(item.name));
     }
 }

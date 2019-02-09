@@ -17,18 +17,21 @@ public class MainUI extends UI {
         this.startButton = new ButtonUI("Start", 100, 180) {
             @Override
             public void click(Game game) {
+                // Start the game by opening the game ui
                 game.openUI(new GameUI());
             }
         };
         this.optionsButton = new ButtonUI("Options", 100, 220) {
             @Override
             public void click(Game game) {
+                // Open the options ui
                 game.openUI(new OptionsUI());
             }
         };
         this.quitButton = new ButtonUI("Quit", 100, 240) {
             @Override
             public void click(Game game) {
+                // Quit the game
                 game.quit();
             }
         };

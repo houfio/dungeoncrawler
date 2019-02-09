@@ -11,6 +11,7 @@ public class FloorValidator extends Validator<ItemEntity> {
 
     @Override
     public ItemEntity parse(Game game, String input) {
+        // Filter entities on input
         return game.getCurrent().currentRoom().entities.stream()
             .filter(entity -> entity instanceof ItemEntity)
             .map(entity -> (ItemEntity) entity)

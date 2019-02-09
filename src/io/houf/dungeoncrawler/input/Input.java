@@ -29,13 +29,13 @@ public class Input {
 
         try (var scanner = new Scanner(this.input)) {
             while (scanner.hasNext()) {
-                var input = scanner.nextLine();
+                var input = scanner.nextLine().trim();
 
                 if (!this.listening) {
+                    // Break the loop if stopped
                     break;
-                }
-
-                if (input.isEmpty()) {
+                } else if (input.isEmpty()) {
+                    // Ignore empty input
                     continue;
                 }
 
