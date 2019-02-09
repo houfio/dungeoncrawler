@@ -6,6 +6,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class AudioHandler {
         } else if (!this.clips.containsKey(name)) {
             try {
                 // Get stream from wav file
-                var stream = AudioSystem.getAudioInputStream(AudioHandler.class.getResourceAsStream("/assets/audio/" + name + ".wav"));
+                var stream = AudioSystem.getAudioInputStream(new BufferedInputStream(AudioHandler.class.getResourceAsStream("/assets/audio/" + name + ".wav")));
                 var clip = AudioSystem.getClip();
 
                 // Open the stream in the created clip
