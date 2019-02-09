@@ -13,6 +13,7 @@ public class StickItem extends Item {
     @Override
     public Item onUse(Game game) {
         game.getLogger().printLine("You swing the stick in the wild. It breaks.", Color.ORANGE);
+        game.getAudio().play("use");
 
         return null;
     }

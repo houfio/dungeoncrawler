@@ -24,10 +24,14 @@ public abstract class ButtonUI extends UI implements Selectable {
 
     @Override
     public void render(Game game, Graphics2D g) {
-        String string = (this.selected ? "> " : "  ") + this.text;
+        String string = (this.selected ? "> " : "  ") + this.getDisplayText(game);
 
         g.setColor(this.selected ? Color.YELLOW : Color.WHITE);
         g.drawString(string, this.x, this.y);
+    }
+
+    public String getDisplayText(Game game) {
+        return this.text;
     }
 
     @Override

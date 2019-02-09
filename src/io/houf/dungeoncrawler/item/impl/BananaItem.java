@@ -13,6 +13,7 @@ public class BananaItem extends Item {
     @Override
     public Item onUse(Game game) {
         game.getLogger().printLine("You peeled the banana", Color.YELLOW);
+        game.getAudio().play("use");
 
         return new PeelItem();
     }

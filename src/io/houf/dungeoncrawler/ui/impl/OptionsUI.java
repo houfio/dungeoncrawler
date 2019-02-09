@@ -8,18 +8,24 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class CongratulationsUI extends UI {
-    private final ButtonUI againButton;
-    private final ButtonUI menuButton;
+public class OptionsUI extends UI {
+    private final ButtonUI audioButton;
+    private final ButtonUI backButton;
 
-    public CongratulationsUI() {
-        this.againButton = new ButtonUI("Play again", 100, 180) {
+    public OptionsUI() {
+        this.audioButton = new ButtonUI("Audio", 100, 180) {
+            @Override
+            public String getDisplayText(Game game) {
+                return super.getDisplayText(game) + " (" + (game.getAudio().enabled() ? "on" : "off") + ")";
+            }
+
             @Override
             public void click(Game game) {
-                game.openUI(new GameUI());
+                game.getAudio().toggle();
+                game.getAudio().play("menu");
             }
         };
-        this.menuButton = new ButtonUI("Back to menu", 100, 220) {
+        this.backButton = new ButtonUI("Back to menu", 100, 220) {
             @Override
             public void click(Game game) {
                 game.openUI(new MainUI());
@@ -30,16 +36,16 @@ public class CongratulationsUI extends UI {
     @Override
     public java.util.List<UI> getChildren() {
         return Arrays.asList(
-            this.againButton,
-            this.menuButton
+            this.audioButton,
+            this.backButton
         );
     }
 
     @Override
     public List<Selectable> getSelectables() {
         return Arrays.asList(
-            this.againButton,
-            this.menuButton
+            this.audioButton,
+            this.backButton
         );
     }
 
@@ -47,8 +53,8 @@ public class CongratulationsUI extends UI {
     public void render(Game game, Graphics2D g) {
         g.setColor(Color.WHITE);
         g.setFont(Game.BIG_FONT);
-        g.drawString("Congratulations!", 100, 100);
+        g.drawString("Options", 100, 100);
         g.setFont(Game.NORMAL_FONT);
-        g.drawString("You escaped the dungeon through a hole in the ceiling.", 100, 120);
+        g.drawString("Because YOU deserve the best.", 100, 120);
     }
 }

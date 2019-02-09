@@ -10,6 +10,7 @@ import java.util.List;
 
 public class MainUI extends UI {
     private final ButtonUI startButton;
+    private final ButtonUI optionsButton;
     private final ButtonUI quitButton;
 
     public MainUI() {
@@ -19,7 +20,13 @@ public class MainUI extends UI {
                 game.openUI(new GameUI());
             }
         };
-        this.quitButton = new ButtonUI("Quit", 100, 200) {
+        this.optionsButton = new ButtonUI("Options", 100, 220) {
+            @Override
+            public void click(Game game) {
+                game.openUI(new OptionsUI());
+            }
+        };
+        this.quitButton = new ButtonUI("Quit", 100, 240) {
             @Override
             public void click(Game game) {
                 game.quit();
@@ -31,6 +38,7 @@ public class MainUI extends UI {
     public List<UI> getChildren() {
         return Arrays.asList(
             this.startButton,
+            this.optionsButton,
             this.quitButton
         );
     }
@@ -39,6 +47,7 @@ public class MainUI extends UI {
     public List<Selectable> getSelectables() {
         return Arrays.asList(
             this.startButton,
+            this.optionsButton,
             this.quitButton
         );
     }

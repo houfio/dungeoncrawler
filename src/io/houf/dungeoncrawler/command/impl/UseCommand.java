@@ -34,7 +34,7 @@ public class UseCommand implements Command {
 
         if (replacement == null) {
             player.items.remove(index);
-        } else if (!player.hasItem(replacement)) {
+        } else if (item.name.equals(replacement.name) || !player.hasItem(replacement)) {
             player.items.set(index, replacement);
         } else {
             game.getLogger().printLine("You already have that item in your backpack.", Color.RED);
